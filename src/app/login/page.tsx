@@ -13,7 +13,7 @@ const page = () => {
         <ImageContainer className="size-full" src="/img/rentaku-login.png" alt="">
           <div className="absolute top-0 flex size-full flex-col justify-between bg-gradient-to-b from-black/80 to-black/20 p-10">
             <ImageContainer
-              alt="Rentaku Logo"
+              alt="Rentalin Aja Logo"
               src="/img/rentaku-logo.png"
               className="aspect-square w-24 bg-transparent"
             />

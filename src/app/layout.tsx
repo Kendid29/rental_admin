@@ -15,11 +15,11 @@ const primaryFont = Geist({
 
 export const metadata: Metadata = {
   title: {
-    template: '%s | Web Admin Rentaku',
-    default: 'Web Admin Rentaku',
-    absolute: 'Web Admin Rentaku',
+    template: '%s | Web Admin Rentalin Aja',
+    default: 'Web Admin Rentalin Aja',
+    absolute: 'Web Admin Rentalin Aja',
   },
-  description: 'Web Admin Rentaku - Platform Rental Kendaraan & Barang',
+  description: 'Web Admin Rentalin Aja - Platform Rental Kendaraan & Barang',
 };
 
 const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (

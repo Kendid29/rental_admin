@@ -26,7 +26,7 @@ const Page = (): JSX.Element => {
       <div className="flex flex-1 flex-col">
         <DashboardTitle
           title="Admin"
-          subTitle="Kelola akun administrator platform Rentaku."
+          subTitle="Kelola akun administrator platform Rentalin Aja."
           breadcrumbs={breadcrumbs}
         >
           {checkPermission('admin', 'Create') && (

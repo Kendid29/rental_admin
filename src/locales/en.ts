@@ -23,8 +23,8 @@ export interface TranslationType {
 
 export const en: TranslationType = {
   auth: {
-    title: 'Rentaku Admin',
-    subtitle: 'Enter your email and password to log into Rentaku Admin',
+    title: 'Rentalin Aja Admin',
+    subtitle: 'Enter your email and password to log into Rentalin Aja Admin',
     emailLabel: 'Email',
     emailPlaceholder: 'Enter your email',
     passwordLabel: 'Password',

@@ -27,7 +27,7 @@ const Page = () => {
           Segera hadir
         </Typography>
         <Typography variant="body2" className="mt-2 max-w-md text-slate-500">
-          Modul manajemen suspend dan penangguhan entitas platform Rentaku sedang dalam proses
+          Modul manajemen suspend dan penangguhan entitas platform Rentalin Aja sedang dalam proses
           pengembangan.
         </Typography>
       </Card>

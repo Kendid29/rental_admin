@@ -85,7 +85,7 @@ const Page = ({ params }: { params: Promise<{ uuid: string }> }) => {
                 </span>
               </div>
               <Typography variant="body2" className="mb-4 text-slate-500">
-                Unit kendaraan atau barang yang terdaftar atas nama mitra ini di platform Rentaku.
+                Unit kendaraan atau barang yang terdaftar atas nama mitra ini di platform Rentalin Aja.
               </Typography>
 
               <MitraUnitTable units={mitraData?.units} isLoading={isLoading} />

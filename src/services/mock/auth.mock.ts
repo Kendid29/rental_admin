@@ -122,7 +122,7 @@ export const handleAuthMock = ({
         user: {
           uuid: 'mock-user-uuid',
           email: data?.email || 'admin@rentaku.id',
-          name: 'Super Admin Rentaku',
+          name: 'Super Admin Rentalin Aja',
         },
       },
       'Login Berhasil',
@@ -138,7 +138,7 @@ export const handleAuthMock = ({
       },
       profile: {
         uuid: 'mock-profile-uuid',
-        name: 'Admin Rentaku',
+        name: 'Admin Rentalin Aja',
         photo: {
           uuid: 'mock-photo-uuid',
           url: '/img/rentaku-logo.png',

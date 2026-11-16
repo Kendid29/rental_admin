@@ -1,13 +1,13 @@
-# Web Admin Rentaku
+# Web Admin Rentalin Aja
 
-Web Admin untuk platform rental kendaraan dan barang **Rentaku** (Next.js 16, React 19, MUI 7, TypeScript, Tailwind v4).
+Web Admin untuk platform rental kendaraan dan barang **Rentalin Aja** (Next.js 16, React 19, MUI 7, TypeScript, Tailwind v4).
 
 ## Fitur Utama
 
 - **Pengguna**: Manajemen ADMIN, USER, dan PERMISSION
 - **Mitra**: MASTER MITRA dan inventaris unit
 - **Master Data**: Vehicle category (Mobil, Motor, sub-kategori), MASTER, RULES
-- **Transaksi**: Manajemen alur transaksi sewa Rentaku
+- **Transaksi**: Manajemen alur transaksi sewa Rentalin Aja
 - **Reimburse**: Pembayaran mitra untuk transaksi selesai
 - **Update & Suspend**: Jejak audit perubahan dan penangguhan
 

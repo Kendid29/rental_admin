@@ -16,7 +16,7 @@ const Page = (): JSX.Element => {
       <div className="flex flex-1 flex-col">
         <DashboardTitle
           title="User / Pelanggan"
-          subTitle="Kelola data pelanggan dan penyewa pada platform Rentaku."
+          subTitle="Kelola data pelanggan dan penyewa pada platform Rentalin Aja."
           breadcrumbs={breadcrumbs}
         />
 

@@ -22,7 +22,7 @@ const Page = () => {
     <div className="flex flex-1 flex-col">
       <DashboardTitle
         title="UPDATE"
-        subTitle="Jejak audit dan riwayat aktivitas perubahan data platform Rentaku (siapa, kapan, apa yang berubah)."
+        subTitle="Jejak audit dan riwayat aktivitas perubahan data platform Rentalin Aja (siapa, kapan, apa yang berubah)."
         breadcrumbs={breadcrumbs}
       />
 

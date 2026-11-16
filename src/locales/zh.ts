@@ -23,8 +23,8 @@ export interface TranslationType {
 
 export const zh: TranslationType = {
   auth: {
-    title: 'Rentaku 管理后台',
-    subtitle: '输入您的邮箱和密码登录 Rentaku 管理后台',
+    title: 'Rentalin Aja 管理后台',
+    subtitle: '输入您的邮箱和密码登录 Rentalin Aja 管理后台',
     emailLabel: '邮箱',
     emailPlaceholder: '请输入邮箱',
     passwordLabel: '密码',

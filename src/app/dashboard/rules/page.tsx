@@ -13,7 +13,7 @@ const Page = () => {
     <div className="flex flex-1 flex-col">
       <DashboardTitle
         title="RULES"
-        subTitle="Manajemen aturan, syarat sewa, dan kebijakan operasional Rentaku"
+        subTitle="Manajemen aturan, syarat sewa, dan kebijakan operasional Rentalin Aja"
         breadcrumbs={[{ label: 'Rules' }]}
       />
       <Card
@@ -27,7 +27,7 @@ const Page = () => {
           Segera hadir
         </Typography>
         <Typography variant="body2" className="mt-2 max-w-md text-slate-500">
-          Modul aturan dan kebijakan operasional platform Rentaku sedang dalam proses pengembangan.
+          Modul aturan dan kebijakan operasional platform Rentalin Aja sedang dalam proses pengembangan.
         </Typography>
       </Card>
     </div>

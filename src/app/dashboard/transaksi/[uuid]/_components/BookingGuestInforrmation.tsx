@@ -71,7 +71,7 @@ const BookingGuestInforrmation = ({ booking }: Props) => {
         <div className="grid w-full grid-cols-2 gap-3">
           <div className="col-span-2 flex items-center gap-2">
             <Building2 size="1rem" className="text-slate-500" />
-            <span className="font-semibold text-slate-800">{mitra?.name || 'Mitra Rentaku'}</span>
+            <span className="font-semibold text-slate-800">{mitra?.name || 'Mitra Rentalin Aja'}</span>
             {mitra?.company && <span className="text-xs text-slate-500">({mitra.company})</span>}
           </div>
           <TextContent Icon={<Phone size={'0.85rem'} />} label="Kontak Mitra">

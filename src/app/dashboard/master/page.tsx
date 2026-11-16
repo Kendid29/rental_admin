@@ -13,7 +13,7 @@ const Page = () => {
     <div className="flex flex-1 flex-col">
       <DashboardTitle
         title="MASTER"
-        subTitle="Pengaturan data master dan konfigurasi referensi sistem Rentaku"
+        subTitle="Pengaturan data master dan konfigurasi referensi sistem Rentalin Aja"
         breadcrumbs={[{ label: 'Master' }]}
       />
       <Card
@@ -27,7 +27,7 @@ const Page = () => {
           Segera hadir
         </Typography>
         <Typography variant="body2" className="mt-2 max-w-md text-slate-500">
-          Modul data master dan konfigurasi referensi sistem Rentaku sedang dalam proses
+          Modul data master dan konfigurasi referensi sistem Rentalin Aja sedang dalam proses
           pengembangan.
         </Typography>
       </Card>

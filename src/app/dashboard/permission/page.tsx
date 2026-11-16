@@ -25,7 +25,7 @@ const Page = () => {
       <div className="flex flex-1 flex-col">
         <DashboardTitle
           title="Role & Permission"
-          subTitle="Kelola peran pengguna dan konfigurasi matriks hak akses modul platform Rentaku."
+          subTitle="Kelola peran pengguna dan konfigurasi matriks hak akses modul platform Rentalin Aja."
           breadcrumbs={breadcrumbs}
         >
           {checkPermission('permission', 'Create') && (

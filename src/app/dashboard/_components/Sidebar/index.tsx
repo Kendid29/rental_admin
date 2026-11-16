@@ -71,12 +71,12 @@ const Sidebar = () => {
           <div
             className={`bg-primary-500 flex size-10 items-center justify-center rounded-xl ${isSidebarOpen ? 'mx-0' : 'mx-auto'} transition-all duration-700`}
           >
-            <Typography className="text-lg leading-none font-bold text-white">RK</Typography>
+            <Typography className="text-lg leading-none font-bold text-white">RA</Typography>
           </div>
           <div
             className={`flex flex-col ${isSidebarOpen ? 'w-full' : 'w-0'} overflow-hidden transition-all duration-700`}
           >
-            <Typography className="m-0! text-base font-semibold">Rentaku</Typography>
+            <Typography className="m-0! text-base font-semibold">Rentalin Aja</Typography>
             <Typography className="-mt-1 text-sm text-neutral-500">
               Rental Kendaraan & Barang
             </Typography>

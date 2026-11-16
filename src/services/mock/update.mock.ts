@@ -21,7 +21,7 @@ export const SEED_ACTIVITY_LOGS: ActivityLogItem[] = [
     actor: {
       type: 'admin',
       uuid: 'user-001',
-      name: 'Super Admin Rentaku',
+      name: 'Super Admin Rentalin Aja',
       email: 'admin@rentaku.id',
     },
     changes: {
@@ -55,7 +55,7 @@ export const SEED_ACTIVITY_LOGS: ActivityLogItem[] = [
     actor: {
       type: 'admin',
       uuid: 'user-001',
-      name: 'Super Admin Rentaku',
+      name: 'Super Admin Rentalin Aja',
       email: 'admin@rentaku.id',
     },
     changes: {
@@ -128,7 +128,7 @@ export const SEED_ACTIVITY_LOGS: ActivityLogItem[] = [
     actor: {
       type: 'admin',
       uuid: 'user-001',
-      name: 'Super Admin Rentaku',
+      name: 'Super Admin Rentalin Aja',
       email: 'admin@rentaku.id',
     },
     changes: {
@@ -196,7 +196,7 @@ export const SEED_ACTIVITY_LOGS: ActivityLogItem[] = [
     actor: {
       type: 'admin',
       uuid: 'user-001',
-      name: 'Super Admin Rentaku',
+      name: 'Super Admin Rentalin Aja',
       email: 'admin@rentaku.id',
     },
     changes: {

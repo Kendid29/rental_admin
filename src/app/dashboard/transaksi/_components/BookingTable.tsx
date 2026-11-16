@@ -129,7 +129,7 @@ const BookingTable = ({ date }: Props) => {
       headerName: 'Mitra Pemilik',
       flex: 1.4,
       renderCell({ row }) {
-        const mitraName = row.mitra?.name || 'Mitra Rentaku';
+        const mitraName = row.mitra?.name || 'Mitra Rentalin Aja';
         const city = row.mitra?.city || '-';
 
         return (

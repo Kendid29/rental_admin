@@ -35,7 +35,7 @@ const Page = () => {
       <div className="flex flex-1 flex-col">
         <DashboardTitle
           title="Tambah Admin Baru"
-          subTitle="Tambahkan akun administrator baru untuk platform Rentaku."
+          subTitle="Tambahkan akun administrator baru untuk platform Rentalin Aja."
           breadcrumbs={breadcrumbs}
         />
 

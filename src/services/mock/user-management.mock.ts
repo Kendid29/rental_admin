@@ -60,7 +60,7 @@ const defaultRoles: RoleRecord[] = [
     uuid: 'role-master-admin',
     name: 'Master Admin',
     code: 'master_admin',
-    description: 'Akses penuh ke semua modul platform Rentaku',
+    description: 'Akses penuh ke semua modul platform Rentalin Aja',
     version: 1,
     is_default: true,
   }),

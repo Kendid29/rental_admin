@@ -46,7 +46,7 @@ const Page = ({ params: paramsPromise }: { params: Promise<{ uuid: string }> }) 
     <div className="flex flex-1 flex-col">
       <DashboardTitle
         title={`Konfigurasi Hak Akses: ${data?.name || ''}`}
-        subTitle="Atur matriks hak akses CRUD untuk setiap modul platform Rentaku."
+        subTitle="Atur matriks hak akses CRUD untuk setiap modul platform Rentalin Aja."
         breadcrumbs={breadcrumbs}
       />
 

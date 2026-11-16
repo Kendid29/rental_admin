@@ -188,7 +188,7 @@ const defaultBookings: BookingType[] = [
         status: 'terkonfirmasi',
         label: 'Pembayaran Dikonfirmasi',
         timestamp: '2026-04-17T15:00:00Z',
-        actor: 'Admin Rentaku',
+        actor: 'Admin Rentalin Aja',
         notes: 'Bukti transfer valid dan dana telah masuk.',
       },
     ],
@@ -328,13 +328,13 @@ const defaultBookings: BookingType[] = [
         status: 'terkonfirmasi',
         label: 'Pembayaran Dikonfirmasi',
         timestamp: '2026-04-16T11:30:00Z',
-        actor: 'Admin Rentaku',
+        actor: 'Admin Rentalin Aja',
       },
       {
         status: 'diteruskan_mitra',
         label: 'Diteruskan ke Mitra Pemilik',
         timestamp: '2026-04-16T12:00:00Z',
-        actor: 'Admin Rentaku',
+        actor: 'Admin Rentalin Aja',
         notes: 'Mitra telah menerima notifikasi penyiapan unit.',
       },
     ],
@@ -405,13 +405,13 @@ const defaultBookings: BookingType[] = [
         status: 'terkonfirmasi',
         label: 'Pembayaran Dikonfirmasi',
         timestamp: '2026-04-16T14:10:00Z',
-        actor: 'Admin Rentaku',
+        actor: 'Admin Rentalin Aja',
       },
       {
         status: 'diteruskan_mitra',
         label: 'Diteruskan ke Mitra',
         timestamp: '2026-04-16T14:30:00Z',
-        actor: 'Admin Rentaku',
+        actor: 'Admin Rentalin Aja',
       },
     ],
     version: 3,
@@ -481,13 +481,13 @@ const defaultBookings: BookingType[] = [
         status: 'terkonfirmasi',
         label: 'Pembayaran Dikonfirmasi',
         timestamp: '2026-04-14T08:30:00Z',
-        actor: 'Admin Rentaku',
+        actor: 'Admin Rentalin Aja',
       },
       {
         status: 'diteruskan_mitra',
         label: 'Diteruskan ke Mitra',
         timestamp: '2026-04-14T09:00:00Z',
-        actor: 'Admin Rentaku',
+        actor: 'Admin Rentalin Aja',
       },
       {
         status: 'berjalan',
@@ -569,7 +569,7 @@ const defaultBookings: BookingType[] = [
         status: 'diteruskan_mitra',
         label: 'Diteruskan ke Mitra',
         timestamp: '2026-04-15T10:30:00Z',
-        actor: 'Admin Rentaku',
+        actor: 'Admin Rentalin Aja',
       },
       {
         status: 'berjalan',
@@ -647,13 +647,13 @@ const defaultBookings: BookingType[] = [
         status: 'terkonfirmasi',
         label: 'Pembayaran Dikonfirmasi',
         timestamp: '2026-04-10T09:20:00Z',
-        actor: 'Admin Rentaku',
+        actor: 'Admin Rentalin Aja',
       },
       {
         status: 'diteruskan_mitra',
         label: 'Diteruskan ke Mitra',
         timestamp: '2026-04-10T10:00:00Z',
-        actor: 'Admin Rentaku',
+        actor: 'Admin Rentalin Aja',
       },
       {
         status: 'berjalan',
@@ -736,13 +736,13 @@ const defaultBookings: BookingType[] = [
         status: 'terkonfirmasi',
         label: 'Pembayaran Dikonfirmasi',
         timestamp: '2026-04-08T14:30:00Z',
-        actor: 'Admin Rentaku',
+        actor: 'Admin Rentalin Aja',
       },
       {
         status: 'diteruskan_mitra',
         label: 'Diteruskan ke Mitra',
         timestamp: '2026-04-08T15:00:00Z',
-        actor: 'Admin Rentaku',
+        actor: 'Admin Rentalin Aja',
       },
       {
         status: 'berjalan',
@@ -826,13 +826,13 @@ const defaultBookings: BookingType[] = [
         status: 'terkonfirmasi',
         label: 'Pembayaran Dikonfirmasi',
         timestamp: '2026-04-05T10:25:00Z',
-        actor: 'Admin Rentaku',
+        actor: 'Admin Rentalin Aja',
       },
       {
         status: 'diteruskan_mitra',
         label: 'Diteruskan ke Mitra',
         timestamp: '2026-04-05T11:00:00Z',
-        actor: 'Admin Rentaku',
+        actor: 'Admin Rentalin Aja',
       },
       {
         status: 'berjalan',
@@ -985,7 +985,7 @@ const defaultBookings: BookingType[] = [
         status: 'dibatalkan',
         label: 'Dibatalkan Otomatis oleh Sistem',
         timestamp: '2026-04-11T17:00:00Z',
-        actor: 'Sistem Rentaku',
+        actor: 'Sistem Rentalin Aja',
         notes: 'Batas waktu pembayaran 2 jam telah habis.',
       },
     ],
@@ -1056,13 +1056,13 @@ const defaultBookings: BookingType[] = [
         status: 'terkonfirmasi',
         label: 'Pembayaran Dikonfirmasi',
         timestamp: '2026-04-03T11:35:00Z',
-        actor: 'Admin Rentaku',
+        actor: 'Admin Rentalin Aja',
       },
       {
         status: 'diteruskan_mitra',
         label: 'Diteruskan ke Mitra',
         timestamp: '2026-04-03T12:00:00Z',
-        actor: 'Admin Rentaku',
+        actor: 'Admin Rentalin Aja',
       },
       {
         status: 'berjalan',
@@ -1262,7 +1262,7 @@ export const handleBookingMock = ({
       uuid,
       'terkonfirmasi',
       'Pembayaran Dikonfirmasi',
-      'Admin Rentaku',
+      'Admin Rentalin Aja',
       'Pembayaran telah diverifikasi dan dikonfirmasi oleh admin.',
     );
 
@@ -1281,7 +1281,7 @@ export const handleBookingMock = ({
       uuid,
       'diteruskan_mitra',
       'Diteruskan ke Mitra',
-      'Admin Rentaku',
+      'Admin Rentalin Aja',
       'Pesanan telah diteruskan ke mitra pemilik unit.',
     );
 
@@ -1300,7 +1300,7 @@ export const handleBookingMock = ({
       uuid,
       'berjalan',
       'Mulai Sewa (Unit Diserahkan)',
-      'Admin / Mitra Rentaku',
+      'Admin / Mitra Rentalin Aja',
       'Unit kendaraan/barang telah diserahkan ke penyewa.',
     );
 
@@ -1319,7 +1319,7 @@ export const handleBookingMock = ({
       uuid,
       'selesai',
       'Selesai Sewa (Unit Dikembalikan)',
-      'Admin / Mitra Rentaku',
+      'Admin / Mitra Rentalin Aja',
       'Unit telah dikembalikan dan diverifikasi kondisinya.',
     );
 
@@ -1339,7 +1339,7 @@ export const handleBookingMock = ({
       uuid,
       'dibatalkan',
       'Transaksi Dibatalkan',
-      'Admin Rentaku',
+      'Admin Rentalin Aja',
       reason,
     );
 
