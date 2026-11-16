@@ -93,12 +93,6 @@ const AgentTable = () => {
               children: <EllipsisVertical size={'1rem'} />,
             }}
           >
-            <MenuItem component={Link} href={`/dashboard/agent/${params.value}/history`}>
-              <ListItemIcon>
-                <Eye size={'1rem'} />
-              </ListItemIcon>
-              View History
-            </MenuItem>
             {checkPermission('user', 'Update') && (
               <MenuItem component={Link} href={`/dashboard/agent/${params.value}`}>
                 <ListItemIcon>

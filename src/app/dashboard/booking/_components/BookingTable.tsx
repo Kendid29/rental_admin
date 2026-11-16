@@ -13,8 +13,6 @@ import { EllipsisVertical, Eye, FileText } from 'lucide-react';
 import DataGrid from '@/components/mui/DataGrid';
 import Menu from '@/components/mui/Menu';
 import useTablePagination from '@/lib/hooks/useTablePagination';
-import useDownlodBookingInvoice from '@/services/booking/useDownlodBookingInvoice';
-import useDownlodBookingVoucher from '@/services/booking/useDownlodBookingVoucher';
 import useGetBookings from '@/services/booking/useGetBookings';
 
 import { getBookingStatusColor } from '../_utils';
@@ -48,12 +46,6 @@ const BookingTable = ({ date }: Props) => {
         }))
       : [];
   }, [rawData]);
-
-  const { mutate: downloadBookingInvoice, isPending: isDownloadingInvoice } =
-    useDownlodBookingInvoice();
-
-  const { mutate: downloadBookingVoucher, isPending: isDownloadingVoucher } =
-    useDownlodBookingVoucher();
 
   const columns: GridColDef<(typeof data)[number]>[] = [
     {
@@ -127,39 +119,11 @@ const BookingTable = ({ date }: Props) => {
               children: <EllipsisVertical size={'1rem'} />,
             }}
           >
-            <MenuItem
-              onClick={() => {
-                downloadBookingInvoice({
-                  booking_uuid: params.row.uuid,
-                  title: `${params.row.booking_number}-${params.row.guest_info?.name || 'guest'}-${dayjs(date || params.row.check_in).format('DD-MMM-YYYY')}`,
-                });
-              }}
-              disabled={isDownloadingInvoice}
-            >
-              <ListItemIcon>
-                <FileText size="1rem" />
-              </ListItemIcon>
-              Download Invoice
-            </MenuItem>
-            <MenuItem
-              onClick={() => {
-                downloadBookingVoucher({
-                  booking_uuid: params.row.uuid,
-                  title: `${params.row.booking_number}-${params.row.guest_info?.name || 'guest'}-${dayjs(date || params.row.check_in).format('DD-MMM-YYYY')}`,
-                });
-              }}
-              disabled={isDownloadingVoucher}
-            >
-              <ListItemIcon>
-                <FileText size="1rem" />
-              </ListItemIcon>
-              Download Voucher
-            </MenuItem>
             <MenuItem component={Link} href={`/dashboard/booking/${params.row.uuid}`}>
               <ListItemIcon>
-                <Eye size="1rem" />
+                <Eye size={'1rem'} />
               </ListItemIcon>
-              View
+              Detail
             </MenuItem>
           </Menu>
         );

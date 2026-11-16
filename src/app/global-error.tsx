@@ -28,7 +28,7 @@ const GlobalError = ({ error, reset }: Props) => {
                 <li>Try refreshing the page</li>
                 <li>
                   Go back to the{' '}
-                  <Link href="/dashboard/home" className="underline">
+                  <Link href="/dashboard/admin" className="underline">
                     homepage
                   </Link>
                 </li>

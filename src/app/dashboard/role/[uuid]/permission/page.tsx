@@ -18,7 +18,7 @@ const Page = ({ params: paramsPromise }: { params: Promise<{ uuid: string }> }) 
     return [
       {
         label: 'Dashboard',
-        href: '/dashboard/home',
+        href: '/dashboard/admin',
       },
       {
         label: 'Role',

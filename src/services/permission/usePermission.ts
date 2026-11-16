@@ -6,13 +6,13 @@ import useGetUserSession from '../auth/useGetUserSession';
 import useGetPermissionUser from './useGetPermissionUser';
 
 export const usePermission = (uuid?: string) => {
-  const { data, isLoading } = useGetUserSession();
+  const { data } = useGetUserSession();
 
   const { data: permissionsData } = useGetPermissionUser(uuid);
 
   return useCallback(
     (moduleName: string, permission: 'Read' | 'Create' | 'Update' | 'Delete') => {
-      if (moduleName === 'dashboard' || moduleName === 'gallery' || moduleName === 'activity_log') return true;
+      if (moduleName === 'activity_log' || moduleName === 'update') return true;
 
       const mod = (uuid ? permissionsData : data?.permissions)?.find((module) => {
         return module.module_name.toLocaleLowerCase().replaceAll(' ', '_') === moduleName;

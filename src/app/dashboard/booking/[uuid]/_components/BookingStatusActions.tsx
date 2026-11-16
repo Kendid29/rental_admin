@@ -14,7 +14,6 @@ import useCheckOutBooking from '@/services/booking/useCheckOutBooking';
 import useConfirmBooking from '@/services/booking/useConfirmBooking';
 
 import { getBookingStatusColor } from '../../_utils';
-import RescheduleModal from './RescheduleModal';
 
 interface Props {
   booking?: BookingDetailType;
@@ -66,16 +65,7 @@ const BookingStatusActions = ({ booking }: Props) => {
     );
   }, [booking]);
 
-  const isCanReschedule = useMemo(() => {
-    if (!booking) return false;
-
-    const status = booking?.status.value?.toLowerCase();
-
-    return status === 'pending' || status === 'confirmed';
-  }, [booking]);
-
   const [isOpenCancelBooking, setIsOpenCancelBooking] = useState(false);
-  const [isOpenReschedule, setIsOpenReschedule] = useState(false);
 
   const { mutate: cancelBooking, isPending: isCancelling } = useCancelBooking(booking?.uuid || '');
 
@@ -149,16 +139,6 @@ const BookingStatusActions = ({ booking }: Props) => {
             <Button
               fullWidth
               variant="outlined"
-              color="primary"
-              disabled={!isCanReschedule}
-              onClick={() => setIsOpenReschedule(true)}
-            >
-              Reschedule
-            </Button>
-
-            <Button
-              fullWidth
-              variant="outlined"
               color="error"
               disabled={!isCanCancel}
               onClick={() => setIsOpenCancelBooking(true)}
@@ -187,14 +167,6 @@ const BookingStatusActions = ({ booking }: Props) => {
         content="Are you sure want to cancel this booking?"
         buttonLabel="Cancel Booking"
       />
-
-      {booking && (
-        <RescheduleModal
-          open={isOpenReschedule}
-          onClose={() => setIsOpenReschedule(false)}
-          booking={booking}
-        />
-      )}
     </>
   );
 };

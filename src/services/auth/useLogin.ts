@@ -64,7 +64,7 @@ const useLogin = (options?: UseMutationOptions<any, unknown, FormBody, unknown>)
       if (fallbackUrl && fallbackUrl !== '/login') {
         router.push(fallbackUrl);
       } else {
-        router.push('/dashboard/home');
+        router.push('/dashboard/admin');
       }
 
       queryClient.invalidateQueries({ queryKey: [TAGS.AUTH, TAGS.PERMISSIONS] });

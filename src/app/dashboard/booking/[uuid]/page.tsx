@@ -9,7 +9,6 @@ import BookingDetails from './_components/BookingDetails';
 import BookingGuestInforrmation from './_components/BookingGuestInforrmation';
 import BookingPaymentDetail from './_components/BookingPaymentDetail';
 import BookingStatusActions from './_components/BookingStatusActions';
-import PackageTourBookingDetail from './_components/PackageTourBookingDetail';
 
 const page = ({ params }: { params: Promise<{ uuid: string }> }) => {
   const { uuid } = use(params);
@@ -40,9 +39,6 @@ const page = ({ params }: { params: Promise<{ uuid: string }> }) => {
           <BookingGuestInforrmation booking={booking} />
 
           {booking?.rooms && booking?.rooms.length > 0 && <BookingDetails booking={booking} />}
-          {booking?.package_tours && booking?.package_tours.length > 0 && (
-            <PackageTourBookingDetail booking={booking} />
-          )}
         </div>
         <div className="flex flex-[1] flex-col gap-6">
           <BookingStatusActions booking={booking} />

@@ -1,5 +1,4 @@
 import { BasicRelationType } from './globals';
-import PromotionType from './promotion.type';
 import UserType from './user.type';
 
 export interface BookingCalendarDateType {
@@ -73,7 +72,7 @@ interface BookingPerNightPromoType {
   original_price: number;
   discount: number;
   selling_price: number;
-  applied_promo: PromotionType;
+  applied_promo?: any;
 }
 
 interface BookingVoucherType {

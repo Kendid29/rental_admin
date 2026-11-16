@@ -22,7 +22,7 @@ export const useNavigationStore = create<NavigationStore>()(
           ...state,
           isSidebarOpen: !state.isSidebarOpen,
         })),
-      activeMenu: '/dashboard/home',
+      activeMenu: '/dashboard/admin',
       setActiveMenu: (menu) =>
         set((state) => ({
           ...state,

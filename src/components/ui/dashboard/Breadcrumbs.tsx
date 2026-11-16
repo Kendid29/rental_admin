@@ -21,7 +21,7 @@ const Breadcrumbs = ({ breadcrumbs }: Props) => {
 
   return (
     <MuiBreadcrumbs className="mb-2">
-      <Link href={'/dashboard/home'}>
+      <Link href={'/dashboard/admin'}>
         <Typography className="hover:underline" variant="body2">
           {isZh ? '首页' : 'Home'}
         </Typography>

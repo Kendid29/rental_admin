@@ -41,7 +41,7 @@ export const proxy = async (request: NextRequest) => {
   }
 
   if (token && pathname === '/login') {
-    return NextResponse.redirect(new URL('/dashboard/home', request.url));
+    return NextResponse.redirect(new URL('/dashboard/admin', request.url));
   }
 
   if ((pathname === '/' || pathname.startsWith('/dashboard')) && !token) {
@@ -49,7 +49,7 @@ export const proxy = async (request: NextRequest) => {
   }
 
   if (pathname === '/') {
-    return NextResponse.redirect(new URL('/dashboard/home', request.url));
+    return NextResponse.redirect(new URL('/dashboard/admin', request.url));
   }
 
   const matchedRoute = matchRoute(pathname);

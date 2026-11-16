@@ -24,7 +24,7 @@ const NotFound = () => {
 
         <Squirrel />
 
-        <Link href="/dashboard/home">
+        <Link href="/dashboard/admin">
           <Button LinkComponent={undefined} variant="contained" color="black">
             Go to home
           </Button>

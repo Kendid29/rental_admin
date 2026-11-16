@@ -1,49 +1,135 @@
 const PROTECTED_ROUTES = [
-  // {
-  //   pathname: '/dashboard/home',
-  //   permission_module: 'dashboard',
-  //   permission_action: 'Read',
-  // },
-
-  // User
+  // Pengguna - Admin
   {
-    pathname: '/dashboard/employee',
-    permission_module: 'employee',
+    pathname: '/dashboard/admin',
+    permission_module: 'admin',
     permission_action: 'Read',
   },
   {
-    pathname: '/dashboard/employee/new',
-    permission_module: 'employee',
+    pathname: '/dashboard/admin/new',
+    permission_module: 'admin',
     permission_action: 'Create',
   },
   {
-    pathname: '/dashboard/employee/:uuid',
-    permission_module: 'employee',
+    pathname: '/dashboard/admin/:uuid',
+    permission_module: 'admin',
     permission_action: 'Update',
   },
 
-  // Role
+  // Pengguna - User
   {
-    pathname: '/dashboard/role',
-    permission_module: 'role',
+    pathname: '/dashboard/user',
+    permission_module: 'user',
     permission_action: 'Read',
   },
   {
-    pathname: '/dashboard/role/new',
-    permission_module: 'role',
+    pathname: '/dashboard/user/new',
+    permission_module: 'user',
     permission_action: 'Create',
   },
   {
-    pathname: '/dashboard/role/:uuid',
-    permission_module: 'role',
+    pathname: '/dashboard/user/:uuid',
+    permission_module: 'user',
     permission_action: 'Update',
   },
 
-  // Role Permission
+  // Pengguna - Permission
   {
-    pathname: '/dashboard/role/:uuid/permission',
-    permission_module: 'role_permission',
+    pathname: '/dashboard/permission',
+    permission_module: 'permission',
+    permission_action: 'Read',
+  },
+  {
+    pathname: '/dashboard/permission/new',
+    permission_module: 'permission',
+    permission_action: 'Create',
+  },
+  {
+    pathname: '/dashboard/permission/:uuid',
+    permission_module: 'permission',
     permission_action: 'Update',
+  },
+  {
+    pathname: '/dashboard/permission/:uuid/permission',
+    permission_module: 'permission',
+    permission_action: 'Update',
+  },
+
+  // Mitra - Master Mitra
+  {
+    pathname: '/dashboard/mitra',
+    permission_module: 'mitra',
+    permission_action: 'Read',
+  },
+  {
+    pathname: '/dashboard/mitra/new',
+    permission_module: 'mitra',
+    permission_action: 'Create',
+  },
+  {
+    pathname: '/dashboard/mitra/:uuid',
+    permission_module: 'mitra',
+    permission_action: 'Update',
+  },
+
+  // Master Data - Vehicle category
+  {
+    pathname: '/dashboard/vehicle-category',
+    permission_module: 'vehicle_category',
+    permission_action: 'Read',
+  },
+  {
+    pathname: '/dashboard/vehicle-category/new',
+    permission_module: 'vehicle_category',
+    permission_action: 'Create',
+  },
+  {
+    pathname: '/dashboard/vehicle-category/:uuid',
+    permission_module: 'vehicle_category',
+    permission_action: 'Update',
+  },
+
+  // Master Data - Master & Rules
+  {
+    pathname: '/dashboard/master',
+    permission_module: 'master',
+    permission_action: 'Read',
+  },
+  {
+    pathname: '/dashboard/rules',
+    permission_module: 'rules',
+    permission_action: 'Read',
+  },
+
+  // Transaksi
+  {
+    pathname: '/dashboard/transaksi',
+    permission_module: 'transaksi',
+    permission_action: 'Read',
+  },
+  {
+    pathname: '/dashboard/transaksi/:uuid',
+    permission_module: 'transaksi',
+    permission_action: 'Read',
+  },
+
+  // Reimburse
+  {
+    pathname: '/dashboard/reimburse',
+    permission_module: 'reimburse',
+    permission_action: 'Read',
+  },
+
+  // Lainnya - Update & Suspend
+  {
+    pathname: '/dashboard/update',
+    permission_module: 'update',
+    permission_action: 'Read',
+  },
+  {
+    pathname: '/dashboard/suspend',
+    permission_module: 'suspend',
+    permission_action: 'Read',
   },
 ];
 
