@@ -44,7 +44,7 @@ export const en: TranslationType = {
     user: 'USER',
     permission: 'PERMISSION',
     mitra: 'Mitra',
-    'master mitra': 'MASTER MITRA',
+    'master mitra': 'MITRA',
     'master data': 'Master Data',
     'vehicle category': 'Vehicle category',
     master: 'MASTER',
@@ -52,7 +52,7 @@ export const en: TranslationType = {
     transaksi: 'TRANSAKSI',
     reimburse: 'REIMBURSE',
     lainnya: 'Others',
-    update: 'UPDATE',
+    update: 'ACTIVITY LOG',
     suspend: 'SUSPEND',
   },
   status: {
