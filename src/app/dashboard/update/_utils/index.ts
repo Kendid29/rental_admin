@@ -20,6 +20,22 @@ export const getActionColor = (action?: string): ChipColorType => {
   }
 };
 
+export const getMethodColor = (method?: string): ChipColorType => {
+  switch (method?.toUpperCase()) {
+    case 'POST':
+      return 'success';
+    case 'PUT':
+    case 'PATCH':
+      return 'warning';
+    case 'DELETE':
+      return 'error';
+    case 'GET':
+      return 'info';
+    default:
+      return 'default';
+  }
+};
+
 export const getMethodBadgeClass = (method?: string): string => {
   switch (method?.toUpperCase()) {
     case 'GET':

@@ -39,7 +39,7 @@ const BookingDetails = ({ booking }: Props) => {
           <div className="mt-1 flex items-center gap-2">
             <Chip size="small" label={category} color="primary" variant="outlined" />
             {plateNumber && (
-              <span className="rounded bg-slate-200 px-2 py-0.5 font-mono text-xs font-semibold text-slate-800">
+              <span className="rounded bg-slate-200 px-2 py-0.5 text-xs font-semibold text-slate-800">
                 {plateNumber}
               </span>
             )}

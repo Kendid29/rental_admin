@@ -5,14 +5,14 @@ import { useMemo, useState } from 'react';
 import { Chip, IconButton, Tooltip, Typography } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 
-import { Eye, ShieldAlert } from 'lucide-react';
+import { Eye } from 'lucide-react';
 
 import DataGrid from '@/components/mui/DataGrid';
 import { PaginationModelType } from '@/lib/hooks/useTablePagination';
 import { ActivityLogItem } from '@/lib/types/activity-log.type';
 import useGetActivityLogs from '@/services/update/useGetActivityLogs';
 
-import { getActionColor, getMethodBadgeClass } from '../_utils';
+import { getActionColor, getMethodColor } from '../_utils';
 import ActivityLogDetailModal from './ActivityLogDetailModal';
 import ActivityLogTableToolbar, { ActivityLogTableToolbarProps } from './ActivityLogTableToolbar';
 
@@ -102,7 +102,7 @@ const ActivityLogTable = ({
       headerName: 'Waktu / Tanggal',
       width: 170,
       renderCell: (params) => (
-        <span className="font-mono text-xs text-stone-700">{params.row.created_at}</span>
+        <span className="text-xs text-slate-700">{params.row.created_at}</span>
       ),
     },
     {
@@ -123,7 +123,7 @@ const ActivityLogTable = ({
       headerName: 'Modul',
       width: 160,
       renderCell: (params) => (
-        <span className="rounded bg-stone-100 px-2 py-0.5 text-xs font-medium text-stone-700">
+        <span className="rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700">
           {params.row.module}
         </span>
       ),
@@ -135,7 +135,7 @@ const ActivityLogTable = ({
       minWidth: 240,
       renderCell: (params) => (
         <Tooltip title={params.row.description} placement="top-start">
-          <Typography variant="body2" className="truncate text-xs font-medium text-stone-800">
+          <Typography variant="body2" className="truncate text-xs font-medium text-slate-800">
             {params.row.description}
           </Typography>
         </Tooltip>
@@ -148,10 +148,10 @@ const ActivityLogTable = ({
       minWidth: 180,
       renderCell: (params) => (
         <div className="flex flex-col justify-center leading-tight">
-          <span className="text-xs font-semibold text-stone-800">
+          <span className="text-xs font-semibold text-slate-800">
             {params.row.actor?.name || 'Unknown'}
           </span>
-          <span className="truncate text-[11px] text-stone-500">
+          <span className="truncate text-[11px] text-slate-500">
             {params.row.actor?.email || '-'}
           </span>
         </div>
@@ -164,17 +164,17 @@ const ActivityLogTable = ({
       renderCell(params) {
         const req = params.row.request;
 
-        if (!req) return <span className="text-xs text-stone-400">-</span>;
+        if (!req) return <span className="text-xs text-slate-400">-</span>;
         return (
-          <div className="flex items-center gap-1.5">
-            <span
-              className={`rounded border px-1.5 py-0.5 text-[10px] font-bold ${getMethodBadgeClass(
-                req.method,
-              )}`}
-            >
-              {req.method}
-            </span>
-            <span className="truncate font-mono text-xs text-stone-600">{req.ip_address}</span>
+          <div className="flex items-center gap-2">
+            <Chip
+              size="small"
+              label={req.method}
+              color={getMethodColor(req.method)}
+              className="text-[11px] font-semibold uppercase"
+              sx={{ minWidth: 48, height: 22 }}
+            />
+            <span className="truncate text-xs text-slate-600">{req.ip_address}</span>
           </div>
         );
       },

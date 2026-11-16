@@ -119,7 +119,7 @@ const BookingTable = ({ date }: Props) => {
         return (
           <div className="flex flex-col justify-center py-1 text-xs">
             <span className="font-medium text-slate-800">{unitName}</span>
-            <span className="font-mono text-slate-500">{plate}</span>
+            <span className="text-slate-500">{plate}</span>
           </div>
         );
       },

@@ -144,7 +144,7 @@ const PayReimburseModal = ({ onClose, onSuccess, open, reimburse }: Props) => {
             <div className="text-xs text-slate-700">
               <span>Rekening Tujuan: </span>
               <strong>{reimburse.mitra.bank_name || 'Bank'}</strong> -{' '}
-              <span className="font-mono">{reimburse.mitra.bank_account_number || '-'}</span> a/n{' '}
+              <span>{reimburse.mitra.bank_account_number || '-'}</span> a/n{' '}
               <strong>{reimburse.mitra.bank_account_holder || reimburse.mitra.name}</strong>
             </div>
           </div>

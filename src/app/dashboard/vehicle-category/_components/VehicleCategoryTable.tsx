@@ -83,7 +83,7 @@ const VehicleCategoryTable = () => {
         return (
           <div className="flex flex-col justify-center py-1">
             <span className="font-semibold text-slate-800">{row.name}</span>
-            {row.code && <span className="font-mono text-xs text-slate-400">{row.code}</span>}
+            {row.code && <span className="text-xs text-slate-400">{row.code}</span>}
           </div>
         );
       },

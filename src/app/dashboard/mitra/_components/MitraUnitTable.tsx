@@ -49,7 +49,7 @@ const MitraUnitTable = ({ units = [], isLoading = false }: Props) => {
       flex: 1.2,
       renderCell({ row }) {
         return (
-          <span className="rounded bg-slate-100 px-2 py-0.5 font-mono text-xs font-medium text-slate-700">
+          <span className="rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700">
             {row.plate_number || '-'}
           </span>
         );

@@ -92,7 +92,7 @@ const ReimburseDetailModal = ({ onClose, onPayClick, open, reimburse }: Props) =
                 {reimburse.unit?.category || 'Kendaraan'}
               </span>
               {reimburse.unit?.plate_number && (
-                <span className="rounded bg-slate-200 px-2 py-0.5 font-mono text-xs font-semibold text-slate-800">
+                <span className="rounded bg-slate-200 px-2 py-0.5 text-xs font-semibold text-slate-800">
                   {reimburse.unit.plate_number}
                 </span>
               )}
@@ -129,7 +129,7 @@ const ReimburseDetailModal = ({ onClose, onPayClick, open, reimburse }: Props) =
               </div>
               <div className="mt-1 text-sm font-bold text-slate-800">
                 {reimburse.mitra.bank_name || 'Bank'} -{' '}
-                <span className="font-mono">{reimburse.mitra.bank_account_number || '-'}</span>
+                <span>{reimburse.mitra.bank_account_number || '-'}</span>
               </div>
               <div className="text-xs text-slate-600">
                 a/n {reimburse.mitra.bank_account_holder || reimburse.mitra.name}
@@ -178,7 +178,9 @@ const ReimburseDetailModal = ({ onClose, onPayClick, open, reimburse }: Props) =
               </div>
               <div>
                 <span className="text-slate-500">Nomor Referensi Bank:</span>
-                <p className="font-mono font-semibold">{reimburse.transfer_reference || '-'}</p>
+                <p className="font-semibold text-slate-800">
+                  {reimburse.transfer_reference || '-'}
+                </p>
               </div>
               {reimburse.notes && (
                 <div className="col-span-2">
