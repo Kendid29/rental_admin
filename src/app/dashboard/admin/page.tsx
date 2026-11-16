@@ -8,18 +8,16 @@ import { JSX } from '@emotion/react/jsx-runtime';
 import { PlusCircle } from 'lucide-react';
 
 import DashboardTitle from '@/components/ui/dashboard/DashboardTitle';
-import { useTranslation } from '@/lib/hooks/useTranslation';
 import { usePermission } from '@/services/permission/usePermission';
 
-import StaffTable from './_components/StaffTable';
+import AdminTable from './_components/AdminTable';
 
 const Page = (): JSX.Element => {
-  const { isZh } = useTranslation();
   const checkPermission = usePermission();
 
   const breadcrumbs = [
     {
-      label: 'Staff',
+      label: 'Admin',
     },
   ];
 
@@ -27,24 +25,24 @@ const Page = (): JSX.Element => {
     <>
       <div className="flex flex-1 flex-col">
         <DashboardTitle
-          title="Staff List"
-          subTitle="Manage your employees here."
+          title="Admin"
+          subTitle="Kelola akun administrator platform Rentaku."
           breadcrumbs={breadcrumbs}
         >
-          {checkPermission('user', 'Create') && (
+          {checkPermission('admin', 'Create') && (
             <Button
               LinkComponent={Link}
-              href={'/dashboard/admin/new'}
+              href="/dashboard/admin/new"
               variant="contained"
               color="primary"
               startIcon={<PlusCircle size={'1rem'} />}
             >
-              {isZh ? '新增员工' : 'New Staff'}
+              Tambah Admin
             </Button>
           )}
         </DashboardTitle>
 
-        <StaffTable />
+        <AdminTable />
       </div>
     </>
   );

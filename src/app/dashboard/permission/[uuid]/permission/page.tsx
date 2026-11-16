@@ -21,7 +21,7 @@ const Page = ({ params: paramsPromise }: { params: Promise<{ uuid: string }> }) 
         href: '/dashboard/admin',
       },
       {
-        label: 'Role',
+        label: 'Role & Permission',
         href: '/dashboard/permission',
       },
       {
@@ -29,20 +29,24 @@ const Page = ({ params: paramsPromise }: { params: Promise<{ uuid: string }> }) 
         href: data?.code.startsWith('master_admin') ? '#' : `/dashboard/permission/${data?.uuid}`,
       },
       {
-        label: 'Permission',
+        label: 'Hak Akses',
       },
     ];
   }, [data]);
 
   if (data?.code.startsWith('master_admin')) {
-    return <div>Master admin role cannot be edited.</div>;
+    return (
+      <div className="p-4 text-slate-500">
+        Peran Master Admin memiliki semua hak akses secara default dan tidak dapat dimodifikasi.
+      </div>
+    );
   }
 
   return (
     <div className="flex flex-1 flex-col">
       <DashboardTitle
-        title="Permission Configuration"
-        subTitle="Configure the permissions for the role."
+        title={`Konfigurasi Hak Akses: ${data?.name || ''}`}
+        subTitle="Atur matriks hak akses CRUD untuk setiap modul platform Rentaku."
         breadcrumbs={breadcrumbs}
       />
 

@@ -1,7 +1,8 @@
 import { createSuccessResponse } from './common';
+import { loadFromStorage, saveToStorage } from './storage';
 import { MockRequestContext, MockResult } from './types';
 
-interface RoleRecord {
+export interface RoleRecord {
   uuid: string;
   name: string;
   code: string;
@@ -18,7 +19,7 @@ interface RoleRecord {
   };
 }
 
-interface UserRecord {
+export interface UserRecord {
   uuid: string;
   name: string;
   phone_number: string;
@@ -31,6 +32,7 @@ interface UserRecord {
     version: number;
   };
   version: number;
+  status: 'aktif' | 'tidak_aktif';
   membership: {
     uuid: string;
     name: string;
@@ -53,20 +55,20 @@ const createRole = (role: Omit<RoleRecord, 'created' | 'updated'>): RoleRecord =
   },
 });
 
-const roleDb: RoleRecord[] = [
+const defaultRoles: RoleRecord[] = [
   createRole({
     uuid: 'role-master-admin',
     name: 'Master Admin',
     code: 'master_admin',
-    description: 'Full access to all modules',
+    description: 'Akses penuh ke semua modul platform Rentaku',
     version: 1,
     is_default: true,
   }),
   createRole({
     uuid: 'role-admin',
-    name: 'Admin',
+    name: 'Admin Operasional',
     code: 'admin',
-    description: 'Operational staff with broad access',
+    description: 'Admin operasional harian untuk transaksi, unit, dan mitra',
     version: 1,
     is_default: false,
   }),
@@ -74,25 +76,25 @@ const roleDb: RoleRecord[] = [
     uuid: 'role-front-office',
     name: 'Front Office',
     code: 'front_office',
-    description: 'Front office and reservation handling',
+    description: 'Staff konfirmasi transaksi dan layanan pelanggan',
     version: 1,
     is_default: false,
   }),
   createRole({
     uuid: 'role-member',
-    name: 'Member',
+    name: 'User / Penyewa',
     code: 'member',
-    description: 'Customer membership role',
+    description: 'Role standar pelanggan atau penyewa',
     version: 1,
     is_default: true,
   }),
 ];
 
-const memberRole = roleDb.find((role) => role.code === 'member') as RoleRecord;
-const adminRole = roleDb.find((role) => role.code === 'admin') as RoleRecord;
-const frontOfficeRole = roleDb.find((role) => role.code === 'front_office') as RoleRecord;
+const memberRole = defaultRoles.find((role) => role.code === 'member') as RoleRecord;
+const adminRole = defaultRoles.find((role) => role.code === 'admin') as RoleRecord;
+const frontOfficeRole = defaultRoles.find((role) => role.code === 'front_office') as RoleRecord;
 
-const userDb: UserRecord[] = [
+const defaultUsers: UserRecord[] = [
   {
     uuid: 'staff-001',
     name: 'Sinta Rahmawati',
@@ -105,6 +107,7 @@ const userDb: UserRecord[] = [
       version: 1,
     },
     version: 1,
+    status: 'aktif',
     membership: { uuid: 'membership-none', name: '-' },
     user_point: { uuid: 'point-staff-001', point: 0 },
   },
@@ -120,8 +123,25 @@ const userDb: UserRecord[] = [
       version: 1,
     },
     version: 1,
+    status: 'aktif',
     membership: { uuid: 'membership-none', name: '-' },
     user_point: { uuid: 'point-staff-002', point: 0 },
+  },
+  {
+    uuid: 'staff-003',
+    name: 'Budi Santoso',
+    phone_number: '+628123334445',
+    location: 'Jakarta',
+    role: adminRole,
+    user: {
+      uuid: 'staff-user-003',
+      email: 'budi.santoso@rentaku.id',
+      version: 1,
+    },
+    version: 1,
+    status: 'tidak_aktif',
+    membership: { uuid: 'membership-none', name: '-' },
+    user_point: { uuid: 'point-staff-003', point: 0 },
   },
   {
     uuid: 'member-001',
@@ -136,6 +156,7 @@ const userDb: UserRecord[] = [
       version: 1,
     },
     version: 2,
+    status: 'aktif',
     membership: { uuid: 'membership-gold', name: 'Gold' },
     user_point: { uuid: 'point-member-001', point: 2450 },
   },
@@ -152,6 +173,7 @@ const userDb: UserRecord[] = [
       version: 1,
     },
     version: 1,
+    status: 'aktif',
     membership: { uuid: 'membership-silver', name: 'Silver' },
     user_point: { uuid: 'point-member-002', point: 980 },
   },
@@ -168,10 +190,27 @@ const userDb: UserRecord[] = [
       version: 1,
     },
     version: 1,
+    status: 'tidak_aktif',
     membership: { uuid: 'membership-bronze', name: 'Bronze' },
     user_point: { uuid: 'point-member-003', point: 320 },
   },
 ];
+
+const getRoleDb = (): RoleRecord[] => {
+  return loadFromStorage<RoleRecord[]>('rentaku_roles', defaultRoles);
+};
+
+const saveRoleDb = (roles: RoleRecord[]) => {
+  saveToStorage('rentaku_roles', roles);
+};
+
+const getUserDb = (): UserRecord[] => {
+  return loadFromStorage<UserRecord[]>('rentaku_users', defaultUsers);
+};
+
+const saveUserDb = (users: UserRecord[]) => {
+  saveToStorage('rentaku_users', users);
+};
 
 const createPagination = (page: number, perPage: number, totalData: number) => {
   const totalPage = Math.max(1, Math.ceil(totalData / perPage));
@@ -209,10 +248,6 @@ const paginate = <T>(items: T[], page: number, perPage: number) => {
   };
 };
 
-const findByUuid = (uuid: string) => {
-  return userDb.find((item) => item.uuid === uuid);
-};
-
 const filterBySearch = (items: UserRecord[], search: string) => {
   if (!search) return items;
 
@@ -246,6 +281,8 @@ const handleRoleMutation = (
   method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   body: any,
 ): MockResult => {
+  const roles = getRoleDb();
+
   if (path === '/auth/role' && method === 'POST') {
     const payload = normalizeBody(body);
     const nextRole: RoleRecord = createRole({
@@ -257,8 +294,9 @@ const handleRoleMutation = (
       is_default: false,
     });
 
-    roleDb.push(nextRole);
-    return createSuccessResponse(nextRole, 'Role created successfully');
+    roles.push(nextRole);
+    saveRoleDb(roles);
+    return createSuccessResponse(nextRole, 'Role berhasil dibuat');
   }
 
   const editMatch = path.match(/^\/auth\/role\/([^/]+)$/u);
@@ -267,9 +305,9 @@ const handleRoleMutation = (
   if (editMatch && method === 'PUT') {
     const uuid = editMatch[1];
     const payload = normalizeBody(body);
-    const role = roleDb.find((item) => item.uuid === uuid);
+    const role = roles.find((item) => item.uuid === uuid);
 
-    if (!role) return createSuccessResponse(null, 'Role not found');
+    if (!role) return createSuccessResponse(null, 'Role tidak ditemukan');
 
     role.name = payload.name || role.name;
     role.code = payload.code || role.code;
@@ -277,17 +315,19 @@ const handleRoleMutation = (
     role.version += 1;
     role.updated = { at: new Date().toISOString(), by: 'mock-admin' };
 
-    return createSuccessResponse(role, 'Role updated successfully');
+    saveRoleDb(roles);
+    return createSuccessResponse(role, 'Role berhasil diperbarui');
   }
 
   if (removeMatch && method === 'DELETE') {
     const uuid = removeMatch[1];
-    const index = roleDb.findIndex((item) => item.uuid === uuid);
+    const index = roles.findIndex((item) => item.uuid === uuid);
 
-    if (index === -1) return createSuccessResponse(null, 'Role not found');
+    if (index === -1) return createSuccessResponse(null, 'Role tidak ditemukan');
 
-    roleDb.splice(index, 1);
-    return createSuccessResponse(null, 'Role deleted successfully');
+    roles.splice(index, 1);
+    saveRoleDb(roles);
+    return createSuccessResponse(null, 'Role berhasil dihapus');
   }
 
   return undefined;
@@ -302,6 +342,7 @@ const buildUserResponse = (record: UserRecord) => ({
   role: record.role,
   user: record.user,
   version: record.version,
+  status: record.status || 'aktif',
   membership: record.membership,
   user_point: record.user_point,
 });
@@ -311,9 +352,12 @@ const handleStaffMutation = (
   method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   body: any,
 ): MockResult => {
+  const users = getUserDb();
+  const roles = getRoleDb();
+
   if (path === '/auth/employee/create' && method === 'POST') {
     const payload = normalizeBody(body);
-    const selectedRole = roleDb.find((role) => role.uuid === payload.role_uuid) || adminRole;
+    const selectedRole = roles.find((role) => role.uuid === payload.role_uuid) || adminRole;
 
     const nextStaff: UserRecord = {
       uuid: `staff-${Date.now()}`,
@@ -327,12 +371,14 @@ const handleStaffMutation = (
         version: 1,
       },
       version: 1,
+      status: (payload.status as 'aktif' | 'tidak_aktif') || 'aktif',
       membership: { uuid: 'membership-none', name: '-' },
       user_point: { uuid: `point-${Date.now()}`, point: 0 },
     };
 
-    userDb.unshift(nextStaff);
-    return createSuccessResponse(nextStaff, 'Staff created successfully');
+    users.unshift(nextStaff);
+    saveUserDb(users);
+    return createSuccessResponse(nextStaff, 'Admin berhasil ditambahkan');
   }
 
   const editMatch = path.match(/^\/auth\/employee\/([^/]+)\/edit$/u);
@@ -342,33 +388,42 @@ const handleStaffMutation = (
   if (editMatch && method === 'PUT') {
     const uuid = editMatch[1];
     const payload = normalizeBody(body);
-    const staff = findByUuid(uuid);
+    const staff = users.find((item) => item.uuid === uuid);
 
-    if (!staff) return createSuccessResponse(null, 'Staff not found');
+    if (!staff) return createSuccessResponse(null, 'Admin tidak ditemukan');
 
     staff.name = payload.name || staff.name;
     staff.phone_number = payload.phone_number || staff.phone_number;
-    staff.role = roleDb.find((role) => role.uuid === payload.role_uuid) || staff.role;
-    staff.user.email = payload.user?.email || staff.user.email;
-    staff.user.version = (payload.user?.version || staff.user.version) + 1;
+    if (payload.role_uuid) {
+      staff.role = roles.find((role) => role.uuid === payload.role_uuid) || staff.role;
+    }
+    if (payload.status) {
+      staff.status = payload.status;
+    }
+    if (payload.user?.email || payload.email) {
+      staff.user.email = payload.user?.email || payload.email || staff.user.email;
+      staff.user.version = (staff.user.version || 1) + 1;
+    }
     staff.version += 1;
 
-    return createSuccessResponse(buildUserResponse(staff), 'Staff updated successfully');
+    saveUserDb(users);
+    return createSuccessResponse(buildUserResponse(staff), 'Admin berhasil diperbarui');
   }
 
   if (removeMatch && method === 'DELETE') {
     const uuid = removeMatch[1];
-    const index = userDb.findIndex((item) => item.uuid === uuid);
+    const index = users.findIndex((item) => item.uuid === uuid);
 
-    if (index === -1) return createSuccessResponse(null, 'Staff not found');
+    if (index === -1) return createSuccessResponse(null, 'Admin tidak ditemukan');
 
-    userDb.splice(index, 1);
-    return createSuccessResponse(null, 'Staff deleted successfully');
+    users.splice(index, 1);
+    saveUserDb(users);
+    return createSuccessResponse(null, 'Admin berhasil dihapus');
   }
 
   if (detailMatch && method === 'GET') {
     const uuid = detailMatch[1];
-    const staff = findByUuid(uuid);
+    const staff = users.find((item) => item.uuid === uuid);
 
     return createSuccessResponse(staff ? buildUserResponse(staff) : null);
   }
@@ -381,9 +436,12 @@ const handleMemberMutation = (
   method: 'GET' | 'POST' | 'PUT' | 'DELETE',
   body: any,
 ): MockResult => {
+  const users = getUserDb();
+  const roles = getRoleDb();
+
   if (path === '/auth/member' && method === 'POST') {
     const payload = normalizeBody(body);
-    const selectedRole = roleDb.find((role) => role.uuid === payload.role_uuid) || memberRole;
+    const selectedRole = roles.find((role) => role.uuid === payload.role_uuid) || memberRole;
 
     const nextMember: UserRecord = {
       uuid: `member-${Date.now()}`,
@@ -398,12 +456,14 @@ const handleMemberMutation = (
         version: 1,
       },
       version: 1,
+      status: (payload.status as 'aktif' | 'tidak_aktif') || 'aktif',
       membership: { uuid: 'membership-bronze', name: 'Bronze' },
       user_point: { uuid: `point-${Date.now()}`, point: 0 },
     };
 
-    userDb.unshift(nextMember);
-    return createSuccessResponse(nextMember, 'Member created successfully');
+    users.unshift(nextMember);
+    saveUserDb(users);
+    return createSuccessResponse(nextMember, 'User berhasil ditambahkan');
   }
 
   const editMatch = path.match(/^\/auth\/member\/([^/]+)\/edit$/u);
@@ -413,35 +473,44 @@ const handleMemberMutation = (
   if (editMatch && method === 'PUT') {
     const uuid = editMatch[1];
     const payload = normalizeBody(body);
-    const member = findByUuid(uuid);
+    const member = users.find((item) => item.uuid === uuid);
 
-    if (!member) return createSuccessResponse(null, 'Member not found');
+    if (!member) return createSuccessResponse(null, 'User tidak ditemukan');
 
     member.name = payload.name || member.name;
     member.phone_number = payload.phone_number || member.phone_number;
     member.birth_date = payload.birth_date || member.birth_date;
     member.location = payload.location || member.location;
-    member.role = roleDb.find((role) => role.uuid === payload.role_uuid) || member.role;
-    member.user.email = payload.user?.email || member.user.email;
-    member.user.version = (payload.user?.version || member.user.version) + 1;
+    if (payload.role_uuid) {
+      member.role = roles.find((role) => role.uuid === payload.role_uuid) || member.role;
+    }
+    if (payload.status) {
+      member.status = payload.status;
+    }
+    if (payload.user?.email || payload.email) {
+      member.user.email = payload.user?.email || payload.email || member.user.email;
+      member.user.version = (member.user.version || 1) + 1;
+    }
     member.version += 1;
 
-    return createSuccessResponse(buildUserResponse(member), 'Member updated successfully');
+    saveUserDb(users);
+    return createSuccessResponse(buildUserResponse(member), 'User berhasil diperbarui');
   }
 
   if (removeMatch && method === 'DELETE') {
     const uuid = removeMatch[1];
-    const index = userDb.findIndex((item) => item.uuid === uuid);
+    const index = users.findIndex((item) => item.uuid === uuid);
 
-    if (index === -1) return createSuccessResponse(null, 'Member not found');
+    if (index === -1) return createSuccessResponse(null, 'User tidak ditemukan');
 
-    userDb.splice(index, 1);
-    return createSuccessResponse(null, 'Member deleted successfully');
+    users.splice(index, 1);
+    saveUserDb(users);
+    return createSuccessResponse(null, 'User berhasil dihapus');
   }
 
   if (detailMatch && method === 'GET') {
     const uuid = detailMatch[1];
-    const member = findByUuid(uuid);
+    const member = users.find((item) => item.uuid === uuid);
 
     return createSuccessResponse(member ? buildUserResponse(member) : null);
   }
@@ -456,9 +525,10 @@ export const handleUserManagementMock = ({
   data,
 }: MockRequestContext): MockResult => {
   if (path === '/auth/role' && method === 'GET') {
+    const roles = getRoleDb();
     const { page, perPage } = parsePagingParams(queryParams);
     const search = (queryParams.get('search_param') || '').toLowerCase();
-    const filtered = filterRoles(roleDb, search);
+    const filtered = filterRoles(roles, search);
     const result = paginate(filtered, page, perPage);
 
     return {
@@ -472,7 +542,8 @@ export const handleUserManagementMock = ({
   const roleDetailMatch = path.match(/^\/auth\/role\/([^/]+)$/u);
 
   if (roleDetailMatch && method === 'GET') {
-    const role = roleDb.find((item) => item.uuid === roleDetailMatch[1]);
+    const roles = getRoleDb();
+    const role = roles.find((item) => item.uuid === roleDetailMatch[1]);
 
     return createSuccessResponse(role || null);
   }
@@ -484,15 +555,22 @@ export const handleUserManagementMock = ({
   }
 
   if (path === '/auth/employee' && method === 'GET') {
+    const users = getUserDb();
     const { page, perPage } = parsePagingParams(queryParams);
     const search = (queryParams.get('search_param') || '').toLowerCase();
     const roleUuid = queryParams.get('role_uuid') || '';
-    const filtered = filterBySearch(
-      userDb.filter(
-        (item) => (roleUuid ? item.role.uuid === roleUuid : true) && item.role.code !== 'member',
-      ),
-      search,
-    );
+    const status = queryParams.get('status') || '';
+
+    let filtered = users.filter((item) => item.role.code !== 'member');
+
+    if (roleUuid) {
+      filtered = filtered.filter((item) => item.role.uuid === roleUuid);
+    }
+    if (status) {
+      filtered = filtered.filter((item) => item.status === status);
+    }
+    filtered = filterBySearch(filtered, search);
+
     const result = paginate(filtered.map(buildUserResponse), page, perPage);
 
     return {
@@ -514,12 +592,18 @@ export const handleUserManagementMock = ({
   }
 
   if (path === '/auth/member' && method === 'GET') {
+    const users = getUserDb();
     const { page, perPage } = parsePagingParams(queryParams);
     const search = (queryParams.get('search_param') || '').toLowerCase();
-    const filtered = filterBySearch(
-      userDb.filter((item) => item.role.code === 'member'),
-      search,
-    );
+    const status = queryParams.get('status') || '';
+
+    let filtered = users.filter((item) => item.role.code === 'member');
+
+    if (status) {
+      filtered = filtered.filter((item) => item.status === status);
+    }
+    filtered = filterBySearch(filtered, search);
+
     const result = paginate(filtered.map(buildUserResponse), page, perPage);
 
     return {

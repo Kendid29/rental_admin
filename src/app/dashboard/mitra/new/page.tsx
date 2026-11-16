@@ -2,32 +2,42 @@
 
 import React from 'react';
 
-import DashboardTitle from '@/components/ui/dashboard/DashboardTitle';
-import useCreateAgent from '@/services/mitra/useCreateAgent';
+import { useRouter } from 'next/navigation';
 
-import AgentForm from '../_components/AgentForm';
+import { toast } from 'react-toastify';
+
+import DashboardTitle from '@/components/ui/dashboard/DashboardTitle';
+import useCreateMitra from '@/services/mitra/useCreateMitra';
+
+import MitraForm from '../_components/MitraForm';
 
 const Page = () => {
-  const { mutate, isPending } = useCreateAgent();
+  const router = useRouter();
+  const { mutate, isPending } = useCreateMitra({
+    onSuccess() {
+      toast('Mitra berhasil ditambahkan', { type: 'success' });
+      router.push('/dashboard/mitra');
+    },
+  });
 
   return (
     <>
-      <div className="flex flex-1 flex-col">
+      <div className="flex flex-1 flex-col pb-12">
         <DashboardTitle
-          title="Create New Agent"
-          subTitle="Create a new agent here."
+          title="Tambah Mitra Baru"
+          subTitle="Daftarkan mitra pemilik unit rental kendaraan atau barang baru."
           breadcrumbs={[
             {
-              label: 'Agent',
+              label: 'Master Mitra',
               href: '/dashboard/mitra',
             },
             {
-              label: 'New Agent',
+              label: 'Tambah Mitra',
             },
           ]}
         />
 
-        <AgentForm onSubmit={(d, options) => mutate(d, options)} isLoading={isPending} />
+        <MitraForm onSubmit={(d, options) => mutate(d, options)} isLoading={isPending} />
       </div>
     </>
   );

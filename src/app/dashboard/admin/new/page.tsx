@@ -2,34 +2,44 @@
 
 import React from 'react';
 
-import DashboardTitle from '@/components/ui/dashboard/DashboardTitle';
-import useCreateStaff from '@/services/admin/useCreateStaff';
+import { useRouter } from 'next/navigation';
 
-import StaffForm from '../_components/StaffForm';
+import { toast } from 'react-toastify';
+
+import DashboardTitle from '@/components/ui/dashboard/DashboardTitle';
+import useCreateAdmin from '@/services/admin/useCreateAdmin';
+
+import AdminForm from '../_components/AdminForm';
 
 const Page = () => {
+  const router = useRouter();
   const breadcrumbs = [
     {
-      label: 'Staff',
+      label: 'Admin',
       href: '/dashboard/admin',
     },
     {
-      label: 'New Staff',
+      label: 'Tambah Admin',
     },
   ];
 
-  const { mutate, isPending } = useCreateStaff();
+  const { mutate, isPending } = useCreateAdmin({
+    onSuccess() {
+      toast('Admin berhasil ditambahkan', { type: 'success' });
+      router.push('/dashboard/admin');
+    },
+  });
 
   return (
     <>
       <div className="flex flex-1 flex-col">
         <DashboardTitle
-          title="Create New Staff"
-          subTitle="Manage your staff here."
+          title="Tambah Admin Baru"
+          subTitle="Tambahkan akun administrator baru untuk platform Rentaku."
           breadcrumbs={breadcrumbs}
         />
 
-        <StaffForm onSubmit={mutate} isLoading={isPending} />
+        <AdminForm onSubmit={mutate} isLoading={isPending} />
       </div>
     </>
   );

@@ -30,21 +30,20 @@ const useTogglePermission = (
     MutationContext
   >({
     ...options,
-    async mutationFn({ uuid }) {
-      if (uuid.startsWith('gallery-')) {
-        return new Promise<any>((resolve) => setTimeout(resolve, 300));
-      }
+    async mutationFn({ uuid, module_name, permission_name, value }) {
       return await fetchHelper(`/auth/role-permission`, 'PUT', {
         role_uuid,
         permission_uuid: uuid,
+        module_name,
+        permission_name,
+        value,
       });
     },
-    // onSuccess: (data, variables, context) => {
-    //   options?.onSuccess?.(data, variables, onMutateResult, context);
-
-    //   queryClient.invalidateQueries({ queryKey: [TAGS.PERMISSIONS, role_uuid] });
-    //   toast('Permission deleted successfully', { type: 'success' });
-    // },
+    onSuccess(data, variables, onMutateResult, context) {
+      options?.onSuccess?.(data, variables, onMutateResult, context);
+      queryClient.invalidateQueries({ queryKey: [TAGS.PERMISSIONS, role_uuid] });
+      toast('Permission berhasil diperbarui', { type: 'success' });
+    },
     async onMutate({ module_name, permission_name, value }) {
       await queryClient.cancelQueries({ queryKey: [TAGS.PERMISSIONS, role_uuid] });
 

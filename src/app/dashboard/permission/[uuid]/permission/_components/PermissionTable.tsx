@@ -15,12 +15,26 @@ interface Props {
   uuid: string;
 }
 
+const MODULE_LABELS: Record<string, string> = {
+  admin: 'Admin',
+  user: 'User / Pelanggan',
+  permission: 'Permission & Role',
+  mitra: 'Master Mitra',
+  vehicle_category: 'Kategori Kendaraan',
+  master: 'Master Data',
+  rules: 'Aturan Sewa (Rules)',
+  transaksi: 'Transaksi Sewa',
+  reimburse: 'Reimburse Mitra',
+  update: 'Update / Log Aktivitas',
+  suspend: 'Suspend',
+};
+
 const PermissionTable = ({ uuid }: Props) => {
   const { data: rawData, isLoading } = useGetPermissions();
 
   const data = useMemo(() => {
     return rawData
-      ? rawData.map((item, i) => ({
+      ? rawData.map((item) => ({
           ...item,
           id: item.uuid,
         }))
@@ -30,12 +44,13 @@ const PermissionTable = ({ uuid }: Props) => {
   const columns: GridColDef<(typeof data)[number]>[] = [
     {
       field: 'module_name',
-      headerName: 'Permission',
-      flex: 1,
+      headerName: 'Modul Sistem',
+      flex: 1.2,
+      valueGetter: (_, row) => MODULE_LABELS[row.module_name.toLowerCase()] || row.module_name,
     },
     {
       field: 'access',
-      headerName: 'Access',
+      headerName: 'Matriks Hak Akses (CRUD)',
       flex: 3,
       sortable: false,
       resizable: false,
@@ -61,7 +76,6 @@ const PermissionTable = ({ uuid }: Props) => {
     <div className="flex h-1 flex-grow flex-col pb-16">
       <DataGrid
         rows={filteredRows}
-        // rows={[]}
         columns={columns}
         loading={isLoading}
         checkboxSelection={false}
@@ -73,7 +87,6 @@ const PermissionTable = ({ uuid }: Props) => {
         slots={{
           toolbar: PermissionTableToolbar as any,
         }}
-        // rowHeight={92}
         paginationMode="client"
         showToolbar
       />

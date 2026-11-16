@@ -2,47 +2,62 @@
 
 import React, { use } from 'react';
 
-import DashboardTitle from '@/components/ui/dashboard/DashboardTitle';
-import useGetStaff from '@/services/admin/useGetStaff';
-import useUpdateStaff from '@/services/admin/useUpdateStaff';
+import { useRouter } from 'next/navigation';
 
-import StaffForm from '../_components/StaffForm';
+import { toast } from 'react-toastify';
+
+import DashboardTitle from '@/components/ui/dashboard/DashboardTitle';
+import useGetAdmin from '@/services/admin/useGetAdmin';
+import useUpdateAdmin from '@/services/admin/useUpdateAdmin';
+
+import AdminForm from '../_components/AdminForm';
 
 const Page = ({ params }: { params: Promise<{ uuid: string }> }) => {
+  const router = useRouter();
   const { uuid } = use(params);
 
-  const { data: employee, isLoading } = useGetStaff(uuid);
+  const { data: admin, isLoading } = useGetAdmin(uuid);
 
-  const { mutate, isPending } = useUpdateStaff(uuid);
+  const { mutate, isPending } = useUpdateAdmin(uuid, {
+    onSuccess() {
+      toast('Admin berhasil diperbarui', { type: 'success' });
+      router.push('/dashboard/admin');
+    },
+  });
 
-  const breadcumbs = [
+  const breadcrumbs = [
     {
-      label: 'Staff',
+      label: 'Admin',
       href: '/dashboard/admin',
     },
     {
-      label: 'Edit Staff',
+      label: 'Edit Admin',
     },
   ];
 
   return (
     <>
       <div className="flex flex-1 flex-col">
-        <DashboardTitle title="Edit Staff" subTitle="Edit a staff here." breadcrumbs={breadcumbs} />
+        <DashboardTitle
+          title="Edit Admin"
+          subTitle="Perbarui informasi dan peran administrator."
+          breadcrumbs={breadcrumbs}
+        />
 
-        <StaffForm
+        <AdminForm
           onSubmit={mutate}
           initialValues={
-            employee && {
-              email: employee.user?.email || '',
-              name: employee.name || '',
-              role_uuid: employee.role?.uuid,
-              phone_number: employee.phone_number || '',
+            admin && {
+              email: admin.user?.email || '',
+              name: admin.name || '',
+              role_uuid: admin.role?.uuid,
+              phone_number: admin.phone_number || '',
+              status: admin.status || 'aktif',
               password: '',
               password_confirmation: '',
-              version: employee.version,
-              user_information_version: employee.user?.version,
-              user_information_uuid: employee.user?.uuid,
+              version: admin.version,
+              user_information_version: admin.user?.version,
+              user_information_uuid: admin.user?.uuid,
             }
           }
           isLoading={isPending || isLoading}

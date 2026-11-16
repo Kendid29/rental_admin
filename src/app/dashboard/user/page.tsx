@@ -2,12 +2,12 @@ import { JSX } from '@emotion/react/jsx-runtime';
 
 import DashboardTitle from '@/components/ui/dashboard/DashboardTitle';
 
-import MemberTable from './_components/MemberTable';
+import UserTable from './_components/UserTable';
 
 const Page = (): JSX.Element => {
   const breadcrumbs = [
     {
-      label: 'Member',
+      label: 'User',
     },
   ];
 
@@ -15,22 +15,12 @@ const Page = (): JSX.Element => {
     <>
       <div className="flex flex-1 flex-col">
         <DashboardTitle
-          title="Member List"
-          subTitle="Manage your members here."
+          title="User / Pelanggan"
+          subTitle="Kelola data pelanggan dan penyewa pada platform Rentaku."
           breadcrumbs={breadcrumbs}
-        >
-          {/* <Button
-            LinkComponent={Link}
-            href={'/dashboard/user/new'}
-            variant="contained"
-            color="primary"
-            startIcon={<PlusCircle size={'1rem'} />}
-          >
-            New Member
-          </Button> */}
-        </DashboardTitle>
+        />
 
-        <MemberTable />
+        <UserTable />
       </div>
     </>
   );

@@ -28,7 +28,7 @@ const PermissionCheckbox = ({ data, role_uuid, module_name }: Props) => {
           key={i}
           size="small"
           label={permission_name}
-          disabled={!checkPermission('role_permission', 'Update' as any)}
+          disabled={!checkPermission('permission', 'Update')}
           checked={
             !!checkPermissionByRole(
               module_name?.toLowerCase().replaceAll(' ', '_'),

@@ -7,12 +7,12 @@ import Link from 'next/link';
 import { Divider, IconButton, ListItemIcon, MenuItem } from '@mui/material';
 import { GridColDef } from '@mui/x-data-grid';
 
-import { EllipsisVertical, Pencil, ShieldUser, Trash2 } from 'lucide-react';
+import { EllipsisVertical, Pencil, ShieldCheck, Trash2 } from 'lucide-react';
+import { toast } from 'react-toastify';
 
 import DataGrid from '@/components/mui/DataGrid';
 import Menu from '@/components/mui/Menu';
 import DeleteConfirmationModal from '@/components/ui/DeleteConfirmationModal';
-import { environment } from '@/constant';
 import useTablePagination from '@/lib/hooks/useTablePagination';
 import useDeleteRole from '@/services/permission/useDeleteRole';
 import useGetRoles from '@/services/permission/useGetRoles';
@@ -26,7 +26,11 @@ const RoleTable = () => {
   const { paginationModel, setPaginationModel, search, setSearch } = useTablePagination();
   const [uuid, setUuid] = useState('');
 
-  const { data: rawData } = useGetRoles({
+  const {
+    data: rawData,
+    isLoading,
+    refetch,
+  } = useGetRoles({
     params: {
       with_pagination: 'true',
       page: `${paginationModel.page + 1}`,
@@ -49,26 +53,20 @@ const RoleTable = () => {
   const columns: GridColDef<(typeof data)[number]>[] = [
     {
       field: 'name',
-      headerName: 'Role Name',
+      headerName: 'Nama Role',
       hideable: false,
-      flex: 2,
+      flex: 1.5,
       valueGetter: (_, row) => row.name,
     },
-    // {
-    //   field: '',
-    //   headerName: 'Role Code',
-    //   flex: 1,
-    //   valueGetter: (_, row) => row.code,
-    // },
     {
       field: 'code',
-      headerName: 'Role Code',
+      headerName: 'Kode Role',
       flex: 1,
       valueGetter: (_, row) => row.code,
     },
     {
       field: 'description',
-      headerName: 'Description',
+      headerName: 'Deskripsi',
       flex: 2,
       valueGetter: (_, row) => row.description || '-',
     },
@@ -94,37 +92,37 @@ const RoleTable = () => {
               key="role-permissions"
               component={Link}
               href={`/dashboard/permission/${params.value}/permission`}
-              disabled={!checkPermission('role_permission', 'Read')}
+              disabled={!checkPermission('permission', 'Read')}
             >
               <ListItemIcon>
-                <ShieldUser size={'1rem'} />
+                <ShieldCheck size={'1rem'} />
               </ListItemIcon>
-              Permissions
+              Konfigurasi Hak Akses
             </MenuItem>
             <MenuItem
               key="role-edit"
               component={params.row.is_default ? 'div' : Link}
               href={`/dashboard/permission/${params.value}`}
-              disabled={!checkPermission('role', 'Update') || params.row.is_default}
+              disabled={!checkPermission('permission', 'Update') || params.row.is_default}
             >
               <ListItemIcon>
                 <Pencil size={'1rem'} />
               </ListItemIcon>
               Edit
             </MenuItem>
-            {environment !== 'prod' && (
+            {!params.row.is_default && (
               <React.Fragment key="role-delete-fragment">
                 <Divider key="role-divider" className="-mx-4 my-1" />
                 <MenuItem
                   key="role-delete"
                   className="text-red-500"
                   onClick={() => setUuid(params.value)}
-                  disabled={!checkPermission('role', 'Delete') || params.row.is_default}
+                  disabled={!checkPermission('permission', 'Delete')}
                 >
                   <ListItemIcon>
                     <Trash2 size={'1rem'} className="text-red-500" />
                   </ListItemIcon>
-                  Delete
+                  Hapus
                 </MenuItem>
               </React.Fragment>
             )}
@@ -140,7 +138,7 @@ const RoleTable = () => {
         <DataGrid
           rows={data}
           columns={columns}
-          // loading={isLoading}
+          loading={isLoading}
           checkboxSelection={false}
           slotProps={{
             toolbar: {
@@ -166,13 +164,15 @@ const RoleTable = () => {
             {
               onSuccess() {
                 setUuid('');
+                toast('Role berhasil dihapus', { type: 'success' });
+                refetch();
               },
             },
           )
         }
         loading={isPending}
-        title="Delete Role"
-        content="Are you sure you want to delete this role? This action cannot be undone."
+        title="Hapus Role"
+        content="Apakah Anda yakin ingin menghapus role ini? Tindakan ini tidak dapat dibatalkan."
       />
     </>
   );
