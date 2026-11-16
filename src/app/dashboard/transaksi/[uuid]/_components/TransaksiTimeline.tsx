@@ -68,7 +68,7 @@ const TransaksiTimeline = ({ timeline = [] }: Props) => {
     <FormCard
       title={
         <Typography className="flex items-center gap-1.5 text-lg font-semibold text-slate-800">
-          <History size={'1.1rem'} className="text-primary-600" />
+          <HistoryIcon size={'1.1rem'} className="text-primary-600" />
           Riwayat Progres Transaksi
         </Typography>
       }

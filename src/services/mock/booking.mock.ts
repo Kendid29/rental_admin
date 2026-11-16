@@ -1354,8 +1354,38 @@ export const handleBookingMock = ({
     const index = bookings.findIndex((b) => b.uuid === uuid);
 
     if (index !== -1) {
-      bookings[index].reimburse_status = 'belum_dibayar';
+      const b = bookings[index];
+
+      b.reimburse_status = 'belum_dibayar';
       saveBookingDb(bookings);
+
+      const rems = loadFromStorage<any[]>('rentaku_reimburses', []);
+      const existingRem = rems.find(
+        (r) => r.transaksi_uuid === b.uuid || r.booking_number === b.booking_number,
+      );
+
+      if (!existingRem) {
+        const total = b.total_payment || 1000000;
+        const fee = Math.round(total * 0.1);
+
+        rems.unshift({
+          uuid: `rem-rentaku-${Date.now()}`,
+          transaksi_uuid: b.uuid,
+          booking_number: b.booking_number,
+          mitra: b.mitra,
+          unit: b.unit,
+          total_transaction: total,
+          platform_fee: fee,
+          nominal_reimburse: total - fee,
+          status: 'belum_dibayar',
+          payment_date: null,
+          transfer_proof_url: null,
+          transfer_reference: null,
+          notes: null,
+          created_at: new Date().toISOString(),
+        });
+        saveToStorage('rentaku_reimburses', rems);
+      }
     }
     return createSuccessResponse({ transaction_uuid: uuid }, 'Pengajuan reimburse berhasil dibuat');
   }

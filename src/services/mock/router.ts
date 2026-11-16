@@ -2,6 +2,7 @@ import { handleAgentMock } from './agent.mock';
 import { handleAuthMock } from './auth.mock';
 import { handleBookingMock } from './booking.mock';
 import { createSuccessResponse, parseQueryParams } from './common';
+import { handleReimburseMock } from './reimburse.mock';
 import { HttpMethod } from './types';
 import { handleUserManagementMock } from './user-management.mock';
 import { handleVehicleCategoryMock } from './vehicle-category.mock';
@@ -45,6 +46,12 @@ export const handleMockRequest = (url: string, method: HttpMethod, data?: any) =
 
   if (typeof vehicleCategoryResult !== 'undefined') {
     return vehicleCategoryResult;
+  }
+
+  const reimburseResult = handleReimburseMock(context);
+
+  if (typeof reimburseResult !== 'undefined') {
+    return reimburseResult;
   }
 
   if (method === 'GET') {
