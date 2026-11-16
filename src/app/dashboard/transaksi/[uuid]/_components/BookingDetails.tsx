@@ -1,108 +1,103 @@
-import { Divider, Typography } from '@mui/material';
+import { Chip, Divider, Typography } from '@mui/material';
 
 import dayjs from 'dayjs';
-import { Calendar } from 'lucide-react';
+import { Calendar, Car, Clock } from 'lucide-react';
 
 import TextContent from '@/components/ui/dashboard/TextContent';
 import FormCard from '@/components/ui/form/FormCard';
 import { DAYS } from '@/constant/tags';
-import { BookingDetailType } from '@/lib/types/booking.type';
+import { BookingType } from '@/lib/types/booking.type';
 
 interface Props {
-  booking?: BookingDetailType;
+  booking?: BookingType;
 }
 
 const BookingDetails = ({ booking }: Props) => {
+  const unit = booking?.unit;
+  const unitName = unit?.name || booking?.rooms?.[0]?.room_type?.name || 'Unit Rental';
+  const category = unit?.category || 'Kendaraan';
+  const plateNumber = unit?.plate_number;
+
+  const startDate = booking?.check_in;
+  const endDate = booking?.check_out;
+
   return (
     <FormCard
       title={
-        <Typography className="flex items-center gap-1 text-lg font-medium">
-          <Calendar size={'1rem'} />
-          Booking Details
+        <Typography className="flex items-center gap-1.5 text-lg font-semibold text-slate-800">
+          <Car size={'1.1rem'} className="text-primary-600" />
+          Rincian Unit & Periode Sewa
         </Typography>
       }
       className="-mt-2 grid w-full grid-cols-2 gap-4"
     >
-      <TextContent label="Rooms">
-        {booking?.rooms.map((room) => room.room_type.name).join(', ')}
-      </TextContent>
-      <TextContent label="Duration">{booking?.duration} nights</TextContent>
+      <div className="col-span-2 flex items-center justify-between rounded-xl border border-slate-100 bg-slate-50 p-4">
+        <div>
+          <Typography variant="subtitle1" className="font-bold text-slate-900">
+            {unitName}
+          </Typography>
+          <div className="mt-1 flex items-center gap-2">
+            <Chip size="small" label={category} color="primary" variant="outlined" />
+            {plateNumber && (
+              <span className="rounded bg-slate-200 px-2 py-0.5 font-mono text-xs font-semibold text-slate-800">
+                {plateNumber}
+              </span>
+            )}
+          </div>
+        </div>
+        <div className="text-right">
+          <span className="text-xs text-slate-500">Tarif Sewa Harian</span>
+          <Typography variant="subtitle1" className="text-primary-600 font-bold">
+            {new Intl.NumberFormat('id-ID', {
+              style: 'currency',
+              currency: 'IDR',
+              maximumFractionDigits: 0,
+            }).format(unit?.price_per_day || booking?.total_payment || 0)}
+            <span className="text-xs font-normal text-slate-500"> / hari</span>
+          </Typography>
+        </div>
+      </div>
 
-      <TextContent label="Guests Total">
-        {(booking?.guest_count.adults || 0) + (booking?.guest_count.children || 0)} guests total
+      <TextContent Icon={<Calendar size={'0.85rem'} />} label="Tanggal Mulai Sewa">
+        {startDate ? (
+          <div>
+            <span className="font-semibold text-slate-800">
+              {DAYS[dayjs(startDate).day()]}, {dayjs(startDate).format('DD MMMM YYYY')}
+            </span>
+            <br />
+            <span className="text-xs text-slate-500">Mulai pukul 09:00 WIB</span>
+          </div>
+        ) : (
+          '-'
+        )}
       </TextContent>
-      <TextContent label="Booking Date">
-        {dayjs(booking?.booking_date).format('DD MMMM YYYY')}
+
+      <TextContent Icon={<Calendar size={'0.85rem'} />} label="Tanggal Selesai Sewa">
+        {endDate ? (
+          <div>
+            <span className="font-semibold text-slate-800">
+              {DAYS[dayjs(endDate).day()]}, {dayjs(endDate).format('DD MMMM YYYY')}
+            </span>
+            <br />
+            <span className="text-xs text-slate-500">Hingga pukul 18:00 WIB</span>
+          </div>
+        ) : (
+          '-'
+        )}
       </TextContent>
 
       <Divider className="col-span-2 my-0" />
 
-      <TextContent label="Check-in">
-        {booking?.check_in ? (
-          <>
-            <span>
-              {DAYS[dayjs(booking?.check_in).day()]},{' '}
-              {dayjs(booking?.check_in).format('DD MMMM YYYY')}
-            </span>
-            <br />
-            <span className="text-xs text-zinc-500">
-              {/* {dayjs(booking?.check_in).format('HH:mm')} */}
-              13:00 WIB
-            </span>
-          </>
-        ) : (
-          <span className="text-xs text-zinc-500">Not checked in yet</span>
-        )}
-      </TextContent>
-      <TextContent label="Check-out">
-        {booking?.check_out ? (
-          <>
-            <span>
-              {DAYS[dayjs(booking?.check_out).day()]},{' '}
-              {dayjs(booking?.check_out).format('DD MMMM YYYY')}
-            </span>
-            <br />
-            <span className="text-xs text-zinc-500">
-              {/* {dayjs(booking?.check_out).format('HH:mm')} */}
-              11:00 WIB
-            </span>
-          </>
-        ) : (
-          <span className="text-xs text-zinc-500">Not checked out yet</span>
-        )}
+      <TextContent Icon={<Clock size={'0.85rem'} />} label="Durasi Sewa">
+        <span className="font-semibold text-slate-800">{booking?.duration || 1} Hari Kalender</span>
       </TextContent>
 
-      <TextContent label="Guest Checked-In at">
-        {booking?.checked_in_at ? (
-          <>
-            <span>
-              {DAYS[dayjs(booking?.checked_in_at).day()]},{' '}
-              {dayjs(booking?.checked_in_at).format('DD MMMM YYYY')}
-            </span>
-            <br />
-            <span className="text-xs text-zinc-500">
-              {dayjs(booking?.checked_in_at).format('HH:mm')} WIB
-            </span>
-          </>
-        ) : (
-          <span className="text-xs text-zinc-500">Not checked in yet</span>
-        )}
-      </TextContent>
-      <TextContent label="Guest Checked-Out at">
-        {booking?.checked_out_at ? (
-          <>
-            <span>
-              {DAYS[dayjs(booking?.checked_out_at).day()]},{' '}
-              {dayjs(booking?.checked_out_at).format('DD MMMM YYYY')}
-            </span>
-            <br />
-            <span className="text-xs text-zinc-500">
-              {dayjs(booking?.checked_out_at).format('HH:mm')} WIB
-            </span>
-          </>
-        ) : (
-          <span className="text-xs text-zinc-500">Not checked out yet</span>
-        )}
+      <TextContent label="Waktu Transaksi Dibuat">
+        <span className="text-xs text-slate-600">
+          {booking?.booking_date
+            ? dayjs(booking.booking_date).format('DD MMMM YYYY, HH:mm [WIB]')
+            : '-'}
+        </span>
       </TextContent>
     </FormCard>
   );

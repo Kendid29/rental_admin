@@ -9,36 +9,37 @@ import BookingDetails from './_components/BookingDetails';
 import BookingGuestInforrmation from './_components/BookingGuestInforrmation';
 import BookingPaymentDetail from './_components/BookingPaymentDetail';
 import BookingStatusActions from './_components/BookingStatusActions';
+import TransaksiTimeline from './_components/TransaksiTimeline';
 
-const page = ({ params }: { params: Promise<{ uuid: string }> }) => {
+const Page = ({ params }: { params: Promise<{ uuid: string }> }) => {
   const { uuid } = use(params);
+
+  const { data: booking } = useGetBooking(uuid);
 
   const breadcrumbs = [
     {
-      label: 'Booking',
+      label: 'Transaksi',
       href: '/dashboard/transaksi',
     },
     {
-      label: 'Booking details',
+      label: 'Detail Transaksi',
       href: `/dashboard/transaksi/${uuid}`,
     },
   ];
 
-  const { data: booking } = useGetBooking(uuid);
-
   return (
     <div className="flex flex-1 flex-col">
       <DashboardTitle
-        title="Booking"
-        subTitle={`Booking Number: ${booking?.booking_number}`}
+        title="Detail Transaksi"
+        subTitle={`Kode Transaksi: ${booking?.booking_number || '-'}`}
         breadcrumbs={breadcrumbs}
       />
 
-      <div className="mx-auto flex w-full max-w-6xl flex-row gap-6">
+      <div className="mx-auto flex w-full max-w-6xl flex-col gap-6 lg:flex-row">
         <div className="flex flex-[2] flex-col gap-6">
           <BookingGuestInforrmation booking={booking} />
-
-          {booking?.rooms && booking?.rooms.length > 0 && <BookingDetails booking={booking} />}
+          <BookingDetails booking={booking} />
+          <TransaksiTimeline timeline={booking?.timeline} />
         </div>
         <div className="flex flex-[1] flex-col gap-6">
           <BookingStatusActions booking={booking} />
@@ -49,4 +50,4 @@ const page = ({ params }: { params: Promise<{ uuid: string }> }) => {
   );
 };
 
-export default page;
+export default Page;

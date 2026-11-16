@@ -10,7 +10,7 @@ import { Search } from 'lucide-react';
 import AutoComplete from '@/components/ui/form/AutoComplete';
 import TextInput from '@/components/ui/form/TextInput';
 
-import { BOOKING_STATUS } from '../_utils';
+import { TRANSAKSI_STATUS } from '../_utils';
 
 export interface BookingTableToolbarProps extends GridToolbarProps {
   onSearch: (value: string) => void;
@@ -20,15 +20,15 @@ export interface BookingTableToolbarProps extends GridToolbarProps {
 
 const BookingTableToolbar = ({ onSearch, onStatusChange, status }: BookingTableToolbarProps) => {
   return (
-    <Toolbar className="flex min-h-auto flex-nowrap gap-3 border-b-0 p-3">
+    <Toolbar className="flex min-h-auto flex-wrap gap-3 border-b-0 p-3 sm:flex-nowrap">
       <div className="flex gap-3">
         <AutoComplete
           name="status"
-          options={BOOKING_STATUS}
+          options={TRANSAKSI_STATUS}
           onChange={(_, value) => onStatusChange(value as string)}
           value={status}
-          className="w-52"
-          renderInputProps={{ label: 'Status' }}
+          className="w-56"
+          renderInputProps={{ label: 'Status Transaksi' }}
         />
       </div>
 
@@ -36,7 +36,7 @@ const BookingTableToolbar = ({ onSearch, onStatusChange, status }: BookingTableT
         size="small"
         name="search"
         onChange={(e) => onSearch(e.target.value)}
-        placeholder="Search..."
+        placeholder="Cari kode transaksi, penyewa, unit, atau mitra..."
         fullWidth
         slotProps={{
           input: {
