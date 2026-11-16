@@ -1,0 +1,127 @@
+@layer theme, base, mui, components, utilities;
+@import 'tailwindcss';
+
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@layer components {
+  .form-container {
+    @apply mx-auto flex w-full max-w-2xl flex-col gap-8 mb-16;
+  }
+}
+
+@theme {
+  --font-sans:
+    var(--font-primary), ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji',
+    'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
+  --font-serif:
+    var(--font-serif), Georgia, Cambria, "Times New Roman", Times, serif;
+
+  --color-primary-50: #FDFBF7;
+  --color-primary-100: #F9F5EA;
+  --color-primary-200: #F0E5C9;
+  --color-primary-300: #E6D3A4;
+  --color-primary-400: #DAC07C;
+  --color-primary-500: #D4AF37;
+  --color-primary-600: #B6932B;
+  --color-primary-700: #917320;
+  --color-primary-800: #70591B;
+  --color-primary-900: #554316;
+  --color-primary-950: #31260B;
+
+  --color-surface-50: #F9F5EA;
+  --color-surface-100: #F0E5C9;
+  --color-surface-200: #E6D3A4;
+
+  --color-secondary-50: #C6EDF5;
+  --color-secondary-100: #B5E7F2;
+  --color-secondary-200: #92DCED;
+  --color-secondary-300: #6FD0E7;
+  --color-secondary-400: #4CC5E1;
+  --color-secondary-500: #29BADB;
+  --color-secondary-600: #1E94AE;
+  --color-secondary-700: #156B7E;
+  --color-secondary-800: #0D424F;
+  --color-secondary-900: #051A1F;
+  --color-secondary-950: #010607;
+
+  --color-success-100: #dff8d2;
+  --color-success-200: #bbf2a8;
+  --color-success-300: #86d875;
+  --color-success-400: #54b24c;
+  --color-success-500: #1e7f1e;
+  --color-success-600: #156d1d;
+  --color-success-700: #0f5b1c;
+  --color-success-800: #09491a;
+  --color-success-900: #053c18;
+
+  --color-info-100: #c6f8e7;
+  --color-info-200: #91f1d8;
+  --color-info-300: #56d7c1;
+  --color-info-400: #2cb0a4;
+  --color-info-500: #007c7c;
+  --color-info-600: #00616a;
+  --color-info-700: #004959;
+  --color-info-800: #003547;
+  --color-info-900: #00263b;
+
+  --color-warning-100: #fbf0c9;
+  --color-warning-200: #f7df94;
+  --color-warning-300: #e8c15d;
+  --color-warning-400: #d2a034;
+  --color-warning-500: #b57500;
+  --color-warning-600: #9b5e00;
+  --color-warning-700: #824a00;
+  --color-warning-800: #683800;
+  --color-warning-900: #562b00;
+
+  --color-danger-100: #fbd5d1;
+  --color-danger-200: #f7a4a5;
+  --color-danger-300: #e87480;
+  --color-danger-400: #d24e69;
+  --color-danger-500: #b51e4b;
+  --color-danger-600: #9b154a;
+  --color-danger-700: #820f47;
+  --color-danger-800: #680941;
+  --color-danger-900: #56053d;
+
+  --spacing-8xl: 90rem;
+}
+
+img:not(.MuiTelInput-FlagImg) {
+  @apply absolute inset-0 h-full w-full bg-transparent;
+}
+
+* {
+  box-sizing: border-box;
+  scrollbar-width: thin;
+  scrollbar-color: var(--color-stone-400) transparent;
+}
+
+/* Custom React Toastify UI Style Overrides */
+.Toastify__toast {
+  border-radius: 12px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+  padding: 14px 18px !important;
+  font-family: var(--font-primary), sans-serif !important;
+}
+
+.Toastify__toast-body {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-size: 0.875rem !important;
+  line-height: 1.4 !important;
+}
+
+.Toastify__toast-icon {
+  width: 22px !important;
+  height: 22px !important;
+  margin-right: 12px !important;
+  flex-shrink: 0 !important;
+}
+
+.Toastify__progress-bar {
+  border-bottom-left-radius: 12px !important;
+  height: 4px !important;
+}

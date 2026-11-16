@@ -1,0 +1,29 @@
+import { useMutation, UseMutationOptions } from '@tanstack/react-query';
+import { toast } from 'react-toastify';
+
+import TAGS from '@/constant/tags';
+import { getQueryCLient } from '@/provider/ReactQueryProvider';
+
+import fetchHelper from '../fetchHelper';
+
+const useDeleteAgent = (options?: UseMutationOptions<any, unknown, { uuid: string; version?: number }, unknown>) => {
+  const queryClient = getQueryCLient();
+
+  return useMutation({
+    ...options,
+    mutationFn: async ({ uuid, version }) => fetchHelper(`/agent/${uuid}`, 'DELETE', { version }),
+    onSuccess(data, variables, onMutateResult, context) {
+      options?.onSuccess?.(data, variables, onMutateResult, context);
+
+      queryClient.invalidateQueries({ queryKey: [TAGS.AGENT] });
+      toast('Agent deleted successfully', { type: 'success' });
+    },
+    onError(error, variables, onMutateResult, context) {
+      options?.onError?.(error, variables, onMutateResult, context);
+
+      toast((error as any).response?.data?.message || 'An error occurred', { type: 'error' });
+    },
+  });
+};
+
+export default useDeleteAgent;

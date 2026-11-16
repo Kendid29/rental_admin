@@ -1,0 +1,110 @@
+import { createSuccessResponse } from './common';
+import { MockRequestContext, MockResult } from './types';
+
+interface RoomOnRequestFacilityRecord {
+  uuid: string;
+  name: string;
+  code: string;
+  description: string;
+  version: number;
+  icon_title: string;
+}
+
+const roomOnRequestFacilityDb: RoomOnRequestFacilityRecord[] = [
+  {
+    uuid: 'rorf-001',
+    name: 'Extra Bed',
+    code: 'EXTRABED',
+    description: 'Additional rollaway bed',
+    version: 1,
+    icon_title: 'bed',
+  },
+  {
+    uuid: 'rorf-002',
+    name: 'Baby Cot',
+    code: 'BABYCOT',
+    description: 'Crib for infants',
+    version: 1,
+    icon_title: 'baby',
+  },
+  {
+    uuid: 'rorf-003',
+    name: 'Iron and Ironing Board',
+    code: 'IRON',
+    description: 'Ironing equipment for clothes',
+    version: 1,
+    icon_title: 'shirt',
+  },
+];
+
+const createPagination = (page: number, perPage: number, totalData: number) => {
+  const totalPage = Math.max(1, Math.ceil(totalData / perPage));
+  const currentPage = Math.min(Math.max(page, 1), totalPage);
+
+  return {
+    data_per_page: perPage,
+    next_page: currentPage < totalPage ? currentPage + 1 : 0,
+    prev_page: currentPage > 1 ? currentPage - 1 : 0,
+    first_page: 1,
+    last_page: totalPage,
+    next_page_url: '',
+    previous_page_url: '',
+    first_page_url: '',
+    last_page_url: '',
+    total_page: totalPage,
+    total_data: totalData,
+  };
+};
+
+const parsePagingParams = (queryParams: URLSearchParams) => {
+  return {
+    page: Number(queryParams.get('page') || '1'),
+    perPage: Number(queryParams.get('per_page') || '10'),
+  };
+};
+
+const paginate = <T>(items: T[], page: number, perPage: number) => {
+  const start = (Math.max(page, 1) - 1) * Math.max(perPage, 1);
+  const end = start + Math.max(perPage, 1);
+
+  return {
+    data: items.slice(start, end),
+    pagination: createPagination(page, perPage, items.length),
+  };
+};
+
+const filterRoomOnRequestFacility = (search: string) => {
+  if (!search) return roomOnRequestFacilityDb;
+
+  return roomOnRequestFacilityDb.filter((item) => {
+    return (
+      item.name.toLowerCase().includes(search) ||
+      item.code.toLowerCase().includes(search) ||
+      item.description.toLowerCase().includes(search)
+    );
+  });
+};
+
+export const handleRoomOnRequestFacilitiesMock = ({ path, queryParams, method }: MockRequestContext): MockResult => {
+  if (path === '/room/on-request-facility' && method === 'GET') {
+    const { page, perPage } = parsePagingParams(queryParams);
+    const search = (queryParams.get('search_param') || '').toLowerCase();
+    const filtered = filterRoomOnRequestFacility(search);
+    const result = paginate(filtered, page, perPage);
+
+    return {
+      data: result.data,
+      success: true,
+      message: 'Success',
+      pagination: result.pagination,
+    };
+  }
+
+  const detailMatch = path.match(/^\/room\/on-request-facility\/([^/]+)$/u);
+  if (detailMatch && method === 'GET') {
+    const facility = roomOnRequestFacilityDb.find((item) => item.uuid === detailMatch[1]);
+    return createSuccessResponse(facility || null);
+  }
+
+  return undefined;
+};
