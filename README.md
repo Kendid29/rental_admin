@@ -1,57 +1,32 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Web Admin Rentaku
 
-## Getting Started
+Web Admin untuk platform rental kendaraan dan barang **Rentaku** (Next.js 16, React 19, MUI 7, TypeScript, Tailwind v4).
 
-First, run the development server:
+## Fitur Utama
+
+- **Pengguna**: Manajemen ADMIN, USER, dan PERMISSION
+- **Mitra**: MASTER MITRA dan inventaris unit
+- **Master Data**: Vehicle category (Mobil, Motor, sub-kategori), MASTER, RULES
+- **Transaksi**: Manajemen alur transaksi sewa Rentaku
+- **Reimburse**: Pembayaran mitra untuk transaksi selesai
+- **Update & Suspend**: Jejak audit perubahan dan penangguhan
+
+## Memulai Pengembangan
+
+Jalankan perintah berikut:
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Buka [http://localhost:3000](http://localhost:3000) pada browser Anda.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Konfigurasi Lingkungan
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Konfigurasi lingkungan dapat diatur melalui `.env` atau `.env.local`:
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
-
-## Local environment variables
-
-Copy `.env.example` to `.env.local` for local development and set any secrets locally. `.env.local` is ignored by git.
-
-Minimum useful variables:
-
-- `NEXT_PUBLIC_API_URL` — backend base URL (no trailing slash)
-- `NEXT_PUBLIC_API_VERSION` — API version segment (e.g. `api/v1`)
-- `NEXT_PUBLIC_CLIENT_VERSION` — client version header
-- `NEXT_PUBLIC_USE_MOCK_API` — set `true` to use local mocks
-
-If you need to test API calls quickly without signing in, you can set a temporary dev bearer token in `.env.local` (development only):
-
-```
-NEXT_PUBLIC_DEV_BEARER_TOKEN=your-dev-token-here
-```
-
-Warning: do NOT commit real tokens. Remove the token before pushing or use proper authentication flows.
-
-After editing, restart the dev server.
+- `NEXT_PUBLIC_API_URL` — Backend base URL
+- `NEXT_PUBLIC_API_VERSION` — Versi API (contoh: `api/v1`)
+- `NEXT_PUBLIC_CLIENT_VERSION` — Header versi client
+- `NEXT_PUBLIC_USE_MOCK_API` — Nilai `true` untuk menggunakan mock stateful lokal, atau `false` untuk API backend riil.

@@ -29,7 +29,7 @@ const useLogout = (callback?: () => void) => {
       toast((error as any).response?.data?.message, { type: 'error' });
     },
     onSettled(data, error, variables, context) {
-      deleteCookie('grd_token');
+      deleteCookie('rk_token');
       router.push('/login');
       queryClient.cancelQueries();
     },

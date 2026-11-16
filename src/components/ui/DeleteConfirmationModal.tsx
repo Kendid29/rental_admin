@@ -78,8 +78,7 @@ const DeleteConfirmationModal = ({
         <Typography
           variant="h5"
           sx={{
-            fontFamily: 'var(--font-serif)',
-            fontWeight: 500,
+            fontWeight: 600,
             fontSize: '1.35rem',
             color: '#1e2939',
             mb: 1.5,

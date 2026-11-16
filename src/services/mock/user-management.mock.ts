@@ -101,7 +101,7 @@ const userDb: UserRecord[] = [
     role: adminRole,
     user: {
       uuid: 'staff-user-001',
-      email: 'sinta@lanadiya.local',
+      email: 'sinta@rentaku.id',
       version: 1,
     },
     version: 1,
@@ -116,7 +116,7 @@ const userDb: UserRecord[] = [
     role: frontOfficeRole,
     user: {
       uuid: 'staff-user-002',
-      email: 'dimas@lanadiya.local',
+      email: 'dimas@rentaku.id',
       version: 1,
     },
     version: 1,
@@ -322,7 +322,7 @@ const handleStaffMutation = (
       role: selectedRole,
       user: {
         uuid: `staff-user-${Date.now()}`,
-        email: payload.email || 'staff@lanadiya.local',
+        email: payload.email || 'admin@rentaku.id',
         version: 1,
       },
       version: 1,
@@ -390,7 +390,7 @@ const handleMemberMutation = (
       role: selectedRole,
       user: {
         uuid: `member-user-${Date.now()}`,
-        email: payload.email || 'member@lanadiya.local',
+        email: payload.email || 'user@rentaku.id',
         version: 1,
       },
       version: 1,

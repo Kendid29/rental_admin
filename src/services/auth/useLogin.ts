@@ -51,7 +51,7 @@ const useLogin = (options?: UseMutationOptions<any, unknown, FormBody, unknown>)
       return result;
     },
     onSuccess(data, variables, onMutateResult, context) {
-      setCookie('grd_token', data.data.token, {
+      setCookie('rk_token', data.data.token, {
         sameSite: true,
         secure: true,
         path: '/',

@@ -17,7 +17,7 @@ const GlobalError = ({ error, reset }: Props) => {
       <body>
         <div className="flex h-screen w-full flex-col">
           <nav className="x-12 sticky top-0 z-50 flex w-full items-center justify-between gap-8 border-b bg-white/50 px-6 py-6 backdrop-blur backdrop-filter">
-            <Link href="/">La Nadiya Villa</Link>
+            <Link href="/dashboard/admin">Web Admin Rentaku</Link>
           </nav>
           <div className="-mt-24 flex flex-1 flex-col items-center justify-center gap-4">
             <TriangleAlert size={250} strokeWidth={1.5} />

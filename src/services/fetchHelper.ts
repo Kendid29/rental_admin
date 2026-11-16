@@ -31,7 +31,7 @@ const fetchHelper = async <T>(
   }
 
   try {
-    const tokenFromCookie = getCookie('grd_token');
+    const tokenFromCookie = getCookie('rk_token');
     const devToken = devBearerToken || '';
 
     const response = await axios.request({
@@ -52,8 +52,8 @@ const fetchHelper = async <T>(
     const queryClient = getQueryCLient();
     const axiosError = error as AxiosError<any>;
 
-    if (axiosError?.response?.status === 401 && url !== '/login' && getCookie('grd_token')) {
-      deleteCookie('grd_token');
+    if (axiosError?.response?.status === 401 && url !== '/login' && getCookie('rk_token')) {
+      deleteCookie('rk_token');
       window.location.href = `/login${pathname ? `?fallback=${pathname}` : ''}`;
 
       queryClient.cancelQueries();

@@ -48,7 +48,7 @@ export const useLocaleStore = create<LocaleStore>()(
       },
     }),
     {
-      name: 'lanadiya_locale',
+      name: 'rentaku_locale',
       onRehydrateStorage: () => (state) => {
         if (state?.locale) {
           dayjs.locale(getDayjsLocale(state.locale));

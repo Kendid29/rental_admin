@@ -24,7 +24,7 @@ const matchRoute = (currentPathname: string) => {
 export const proxy = async (request: NextRequest) => {
   const { pathname } = request.nextUrl;
 
-  const token = request.cookies.get('grd_token')?.value;
+  const token = request.cookies.get('rk_token')?.value;
 
   const permissionsData = getSplitCookie(request.cookies, 'permissions');
   const decryptedPermissions = permissionsData ? decryptData(permissionsData) : [];

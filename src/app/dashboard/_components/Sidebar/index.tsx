@@ -4,10 +4,7 @@ import React, { useMemo } from 'react';
 
 import { Card, Divider, Typography } from '@mui/material';
 
-import ImageContainer from '@/components/ImageContainer';
-import { useTranslation } from '@/lib/hooks/useTranslation';
 import { useNavigationStore } from '@/lib/zustand/navigation.store';
-import useGetUserSession from '@/services/auth/useGetUserSession';
 import { usePermission } from '@/services/permission/usePermission';
 
 import NAV_ITEMS from './nav_items';
@@ -16,9 +13,6 @@ import NavListOpen from './NavListOpen';
 import SideBarToggleButton from './SideBarToggleButton';
 
 const Sidebar = () => {
-  const { isZh } = useTranslation();
-  const { data: user } = useGetUserSession();
-
   const { isSidebarOpen } = useNavigationStore();
 
   const checkPermission = usePermission();
@@ -63,7 +57,7 @@ const Sidebar = () => {
         }),
       };
     }).filter((overview) => overview.items.length > 0);
-  }, [NAV_ITEMS, checkPermission]);
+  }, [checkPermission]);
 
   return (
     <Card
@@ -77,13 +71,13 @@ const Sidebar = () => {
           <div
             className={`bg-primary-500 size-10 rounded-xl flex items-center justify-center ${isSidebarOpen ? 'mx-0' : 'mx-auto'} transition-all duration-700`}
           >
-            <Typography className="text-white font-bold text-lg leading-none">LN</Typography>
+            <Typography className="text-white font-bold text-lg leading-none">RK</Typography>
           </div>
           <div
             className={`flex flex-col ${isSidebarOpen ? 'w-full' : 'w-0'} overflow-hidden transition-all duration-700`}
           >
-            <Typography className="m-0! text-base font-semibold font-serif">La Nadiya</Typography>
-            <Typography className="-mt-1 text-sm font-serif">{isZh ? '度假别墅' : 'Villa'}</Typography>
+            <Typography className="m-0! text-base font-semibold">Rentaku</Typography>
+            <Typography className="-mt-1 text-sm text-neutral-500">Rental Kendaraan & Barang</Typography>
           </div>
         </div>
         <SideBarToggleButton className="md:hidden" />

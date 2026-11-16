@@ -11,7 +11,7 @@ import { setSplitCookie } from '@/lib/utils/setSplitCookie';
 import fetchHelper from '../fetchHelper';
 
 const useGetUserSession = () => {
-  const token = getCookie('grd_token');
+  const token = getCookie('rk_token');
 
   return useQuery<AuthType>({
     queryKey: [TAGS.AUTH],

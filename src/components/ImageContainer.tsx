@@ -16,7 +16,7 @@ const ImageContainer = ({ className, src, alt = '', children, ...props }: Props)
     setImgSrc(src);
   }, [src]);
 
-  const fallbackSrc = '/img/lanadiya-logo.png';
+  const fallbackSrc = '/img/rentaku-logo.png';
   const resolvedSrc = typeof imgSrc === 'string' ? imgSrc : (imgSrc as any)?.src || '';
 
   return (

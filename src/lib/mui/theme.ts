@@ -77,17 +77,22 @@ const MuiTheme = createTheme({
 
   palette: {
     primary: {
-      main: '#FFB405',
-      light: '#FFD166',
-      dark: '#946800',
-      contrastText: '#000',
-    },
-    secondary: {
-      main: '#1E94AE',
-      light: '#4CC5E1',
-      dark: '#051A1F',
+      main: '#0053cd',
+      light: '#4f8dfb',
+      dark: '#003487',
       contrastText: '#fff',
     },
+    secondary: {
+      main: '#186bfa',
+      light: '#4898fd',
+      dark: '#093eb0',
+      contrastText: '#fff',
+    },
+    background: {
+      default: '#f7f9fb',
+      paper: '#ffffff',
+    },
+    divider: '#c5c6cf',
     gray: {
       main: '#6a7282',
       light: '#99a1af',
@@ -101,26 +106,26 @@ const MuiTheme = createTheme({
       contrastText: '#fff',
     },
     warning: {
-      main: '#B57500',
-      light: '#D2A034',
-      dark: '#9B5E00',
+      main: '#f59e0b',
+      light: '#fbbf24',
+      dark: '#d97706',
       contrastText: '#fff',
     },
     success: {
-      main: '#54B24C',
-      light: '#54B24C',
-      dark: '#156D1D',
+      main: '#1e7f1e',
+      light: '#54b24c',
+      dark: '#156d1d',
       contrastText: '#fff',
     },
     error: {
-      main: '#B51E4B',
-      light: '#D24E69',
-      dark: '#9B154A',
+      main: '#ba1a1a',
+      light: '#ff5449',
+      dark: '#93000a',
       contrastText: '#fff',
     },
     white: {
       main: '#fff',
-      contrastText: '#FFB405',
+      contrastText: '#0053cd',
     },
   },
 
@@ -203,7 +208,7 @@ const MuiTheme = createTheme({
             textTransform: 'none',
             borderRadius: '8px',
             '&.MuiButton-containedWhite': {
-              color: '#FFB405',
+              color: '#0053cd',
               backgroundColor: '#fff',
               '&:hover': {
                 backgroundColor: '#f3f4f6',
@@ -257,7 +262,7 @@ const MuiTheme = createTheme({
     MuiRating: {
       styleOverrides: {
         iconFilled: {
-          color: '#FFB405',
+          color: '#f59e0b',
         },
       },
     },
@@ -286,48 +291,42 @@ const MuiTheme = createTheme({
       ],
       styleOverrides: {
         h1: {
-          fontFamily: 'var(--font-serif)',
-          fontWeight: 400,
+          fontWeight: 600,
           fontSize: '3rem',
           [breakpoints.down('lg')]: {
             fontSize: '2.5rem',
           },
         },
         h2: {
-          fontFamily: 'var(--font-serif)',
-          fontWeight: 400,
+          fontWeight: 600,
           fontSize: '2.5rem',
           [breakpoints.down('lg')]: {
             fontSize: '2rem',
           },
         },
         h3: {
-          fontFamily: 'var(--font-serif)',
-          fontWeight: 400,
+          fontWeight: 600,
           fontSize: '2rem',
           [breakpoints.down('lg')]: {
             fontSize: '1.5rem',
           },
         },
         h4: {
-          fontFamily: 'var(--font-serif)',
-          fontWeight: 400,
+          fontWeight: 600,
           fontSize: '1.75rem',
           [breakpoints.down('lg')]: {
             fontSize: '1.25rem',
           },
         },
         h5: {
-          fontFamily: 'var(--font-serif)',
-          fontWeight: 400,
+          fontWeight: 600,
           fontSize: '1.5rem',
           [breakpoints.down('lg')]: {
             fontSize: '1.25rem',
           },
         },
         h6: {
-          fontFamily: 'var(--font-serif)',
-          fontWeight: 400,
+          fontWeight: 600,
           fontSize: '1.25rem',
           [breakpoints.down('lg')]: {
             fontSize: '1rem',
@@ -693,12 +692,12 @@ const MuiTheme = createTheme({
       styleOverrides: {
         root: {
           '& .MuiDataGrid-row:hover': {
-            backgroundColor: `rgba(${hexToRgb('#FFB405')}, 0.03) !important`,
+            backgroundColor: `rgba(${hexToRgb('#0053cd')}, 0.04) !important`,
           },
         },
         columnHeader: {
-          backgroundColor: `rgba(${hexToRgb('#FFB405')}, 0.075)`,
-          color: '#FFB405',
+          backgroundColor: `rgba(${hexToRgb('#0053cd')}, 0.08)`,
+          color: '#0053cd',
           border: 'none',
         },
         columnSeparator: {
