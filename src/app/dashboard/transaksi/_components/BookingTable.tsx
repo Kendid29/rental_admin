@@ -113,7 +113,7 @@ const BookingTable = ({ date }: Props) => {
       headerName: 'Unit Sewa',
       flex: 1.5,
       renderCell({ row }) {
-        const unitName = row.unit?.name || row.rooms?.[0]?.room_type?.name || 'Unit Rental';
+        const unitName = row.unit?.name || 'Unit Rental';
         const plate = row.unit?.plate_number || row.unit?.category || '-';
 
         return (

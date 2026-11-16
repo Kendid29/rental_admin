@@ -68,9 +68,7 @@ const UserTransactionHistory = ({ userEmail, userName }: Props) => {
       headerName: 'Unit Sewa',
       flex: 1.5,
       valueGetter(_, row) {
-        const firstRoom = row.rooms?.[0];
-
-        return firstRoom?.room_type?.name || row.unit_name || 'Unit Kendaraan';
+        return row.unit?.name || row.unit_name || 'Unit Kendaraan';
       },
     },
     {

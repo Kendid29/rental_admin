@@ -14,7 +14,7 @@ interface Props {
 
 const BookingDetails = ({ booking }: Props) => {
   const unit = booking?.unit;
-  const unitName = unit?.name || booking?.rooms?.[0]?.room_type?.name || 'Unit Rental';
+  const unitName = unit?.name || 'Unit Rental';
   const category = unit?.category || 'Kendaraan';
   const plateNumber = unit?.plate_number;
 
