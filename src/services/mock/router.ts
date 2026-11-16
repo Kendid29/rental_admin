@@ -17,21 +17,25 @@ export const handleMockRequest = (url: string, method: HttpMethod, data?: any) =
   };
 
   const authResult = handleAuthMock(context);
+
   if (typeof authResult !== 'undefined') {
     return authResult;
   }
 
   const bookingResult = handleBookingMock(context);
+
   if (typeof bookingResult !== 'undefined') {
     return bookingResult;
   }
 
   const userManagementResult = handleUserManagementMock(context);
+
   if (typeof userManagementResult !== 'undefined') {
     return userManagementResult;
   }
 
   const agentResult = handleAgentMock(context);
+
   if (typeof agentResult !== 'undefined') {
     return agentResult;
   }

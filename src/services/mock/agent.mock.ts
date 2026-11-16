@@ -68,12 +68,18 @@ const filterAgent = (search: string) => {
       item.name.toLowerCase().includes(search) ||
       item.email.toLowerCase().includes(search) ||
       item.phone_number.toLowerCase().includes(search) ||
-      item.company.toLowerCase().includes(search)
+      (item.company && item.company.toLowerCase().includes(search)) ||
+      (item.city && item.city.toLowerCase().includes(search))
     );
   });
 };
 
-export const handleAgentMock = ({ path, queryParams, method, data }: MockRequestContext): MockResult => {
+export const handleAgentMock = ({
+  path,
+  queryParams,
+  method,
+  data,
+}: MockRequestContext): MockResult => {
   if (path === '/agent' && method === 'GET') {
     const { page, perPage } = parsePagingParams(queryParams);
     const search = (queryParams.get('search_param') || '').toLowerCase();
@@ -94,11 +100,13 @@ export const handleAgentMock = ({ path, queryParams, method, data }: MockRequest
       ...data,
       version: 1,
     };
+
     agentDb.push(newAgent);
     return createSuccessResponse(newAgent);
   }
 
   const detailMatch = path.match(/^\/agent\/([^/]+)$/u);
+
   if (detailMatch) {
     const uuid = detailMatch[1];
     const index = agentDb.findIndex((item) => item.uuid === uuid);

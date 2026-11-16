@@ -4,9 +4,9 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import MenuItem from '@mui/material/MenuItem';
 
 import { LogOut, UserRound } from 'lucide-react';
-import { useTranslation } from '@/lib/hooks/useTranslation';
 
 import Menu from '@/components/mui/Menu';
+import { useTranslation } from '@/lib/hooks/useTranslation';
 import useGetUserSession from '@/services/auth/useGetUserSession';
 import useLogout from '@/services/auth/useLogout';
 

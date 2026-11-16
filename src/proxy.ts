@@ -28,11 +28,13 @@ export const proxy = async (request: NextRequest) => {
 
   const permissionsData = getSplitCookie(request.cookies, 'permissions');
   const decryptedPermissions = permissionsData ? decryptData(permissionsData) : [];
-  const permissions = Array.isArray(decryptedPermissions)
-    ? (decryptedPermissions as PermissionType[])
-    : decryptedPermissions === null
-      ? null
-      : [];
+  let permissions: PermissionType[] | null = [];
+
+  if (Array.isArray(decryptedPermissions)) {
+    permissions = decryptedPermissions as PermissionType[];
+  } else if (decryptedPermissions === null) {
+    permissions = null;
+  }
 
   // regex for path ended with .png | .svg | .jpg | .jpeg
   // eslint-disable-next-line regexp/no-unused-capturing-group

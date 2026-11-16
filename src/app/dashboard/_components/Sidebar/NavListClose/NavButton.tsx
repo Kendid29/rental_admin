@@ -10,9 +10,10 @@ import Typograhy from '@mui/material/Typography';
 
 import { ChevronRight } from 'lucide-react';
 
+import { useTranslation } from '@/lib/hooks/useTranslation';
+
 import { OverViewItem } from '../nav_items';
 import NavButton2 from './NavButton2';
-import { useTranslation } from '@/lib/hooks/useTranslation';
 
 const NavButton = ({ item }: { item: OverViewItem }) => {
   const { tSidebar } = useTranslation();

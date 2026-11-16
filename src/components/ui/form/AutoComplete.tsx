@@ -42,6 +42,29 @@ interface BaseProps extends AutocompleteProps<AutocompleteOptionsType, boolean, 
   showSelectAll?: boolean;
 }
 
+const getSelectAllText = (allSelected: boolean, isId: boolean, isZh: boolean) => {
+  if (allSelected) {
+    if (isId) return 'Batal Pilih Semua';
+    if (isZh) return '取消全选';
+    return 'Deselect All';
+  }
+  if (isId) return 'Pilih Semua';
+  if (isZh) return '全选';
+  return 'Select All';
+};
+
+const getSelectedCountText = (isId: boolean, isZh: boolean) => {
+  if (isId) return 'terpilih';
+  if (isZh) return '已选';
+  return 'selected';
+};
+
+const getMoreText = (more: number, isId: boolean, isZh: boolean) => {
+  if (isId) return `+${more} lagi`;
+  if (isZh) return `+${more} 更多`;
+  return `+${more} more`;
+};
+
 const BaseAutoComplete = ({
   options,
   renderInput,
@@ -79,6 +102,7 @@ const BaseAutoComplete = ({
       onChange?.({} as SyntheticEvent, [], 'clear');
     } else {
       const allOptionValues = options.map((d) => d.value);
+
       onControllerChange(allOptionValues);
       onChange?.({} as SyntheticEvent, options as any, 'selectOption');
     }
@@ -113,7 +137,7 @@ const BaseAutoComplete = ({
             key={key || option.value}
             {...otherOptionProps}
             className={cn(
-              'flex items-center gap-2 px-3 py-2 text-sm cursor-pointer hover:bg-amber-50/60 transition-colors',
+              'flex cursor-pointer items-center gap-2 px-3 py-2 text-sm transition-colors hover:bg-amber-50/60',
               selected && 'bg-amber-50 font-medium text-amber-900',
               (optionProps as any).className,
             )}
@@ -141,14 +165,14 @@ const BaseAutoComplete = ({
           <Paper
             {...paperProps}
             variant="outlined"
-            className="overflow-hidden shadow-lg border-slate-200"
+            className="overflow-hidden border-slate-200 shadow-lg"
             style={{ maxHeight: 320, ...paperProps.style }}
           >
             {props.multiple && showSelectAll && options.length > 1 && (
               <div
                 onMouseDown={(e) => e.preventDefault()}
                 onClick={handleToggleAll}
-                className="flex items-center justify-between px-3 py-2 border-b border-slate-200 bg-slate-50 hover:bg-slate-100 cursor-pointer select-none transition-colors"
+                className="flex cursor-pointer items-center justify-between border-b border-slate-200 bg-slate-50 px-3 py-2 transition-colors select-none hover:bg-slate-100"
               >
                 <div className="flex items-center gap-2">
                   <Checkbox
@@ -164,13 +188,11 @@ const BaseAutoComplete = ({
                     }}
                   />
                   <span className="text-xs font-semibold text-slate-700">
-                    {allSelected
-                      ? isId ? 'Batal Pilih Semua' : isZh ? '取消全选' : 'Deselect All'
-                      : isId ? 'Pilih Semua' : isZh ? '全选' : 'Select All'}
+                    {getSelectAllText(allSelected, isId, isZh)}
                   </span>
                 </div>
-                <span className="text-[11px] font-medium text-slate-500 bg-slate-200/70 px-2 py-0.5 rounded-full">
-                  {currentValues.length}/{options.length} {isId ? 'terpilih' : isZh ? '已选' : 'selected'}
+                <span className="rounded-full bg-slate-200/70 px-2 py-0.5 text-[11px] font-medium text-slate-500">
+                  {currentValues.length}/{options.length} {getSelectedCountText(isId, isZh)}
                 </span>
               </div>
             )}
@@ -202,11 +224,12 @@ const BaseAutoComplete = ({
       }}
       value={getValue(value)}
       limitTags={props.limitTags ?? (props.multiple ? 2 : undefined)}
-      getLimitTagsText={(more) => `+${more} ${isId ? 'lagi' : isZh ? '更多' : 'more'}`}
+      getLimitTagsText={(more) => getMoreText(more, isId, isZh)}
       slotProps={{
         chip: {
           size: 'small',
-          className: 'max-w-44 truncate mr-1 my-0.5 bg-amber-50 border border-amber-200 text-amber-900 text-xs font-medium',
+          className:
+            'max-w-44 truncate mr-1 my-0.5 bg-amber-50 border border-amber-200 text-amber-900 text-xs font-medium',
         },
         paper: {
           variant: 'outlined',

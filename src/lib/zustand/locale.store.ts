@@ -1,9 +1,10 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
-import dayjs from 'dayjs';
 import 'dayjs/locale/zh-cn';
 import 'dayjs/locale/en';
 import 'dayjs/locale/id';
+
+import dayjs from 'dayjs';
+import { create } from 'zustand';
+import { persist } from 'zustand/middleware';
 
 export type Locale = 'en' | 'zh' | 'id';
 
@@ -30,18 +31,25 @@ const syncNextLocaleCookie = (locale: Locale) => {
   }
 };
 
+const NEXT_LOCALE_MAP: Record<Locale, Locale> = {
+  en: 'zh',
+  zh: 'id',
+  id: 'en',
+};
+
 export const useLocaleStore = create<LocaleStore>()(
   persist(
     (set, get) => ({
       locale: 'en',
-      setLocale: (locale: Locale) => {
+      setLocale(locale: Locale) {
         dayjs.locale(getDayjsLocale(locale));
         syncNextLocaleCookie(locale);
         set({ locale });
       },
-      toggleLocale: () => {
+      toggleLocale() {
         const current = get().locale;
-        const next: Locale = current === 'en' ? 'zh' : current === 'zh' ? 'id' : 'en';
+        const next: Locale = NEXT_LOCALE_MAP[current] || 'en';
+
         dayjs.locale(getDayjsLocale(next));
         syncNextLocaleCookie(next);
         set({ locale: next });

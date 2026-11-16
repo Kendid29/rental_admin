@@ -6,9 +6,9 @@ import { DataGrid as MuiDataGrid, DataGridProps, GridPaginationMeta } from '@mui
 
 import { ChevronDown, ChevronUp, Ellipsis, Eye, EyeOff, Filter } from 'lucide-react';
 
+import { useTranslation } from '@/lib/hooks/useTranslation';
 import { PaginationType } from '@/lib/types/globals';
 import { cn } from '@/lib/utils';
-import { useTranslation } from '@/lib/hooks/useTranslation';
 
 interface Props extends DataGridProps {
   paginationResponse?: PaginationType;

@@ -11,8 +11,9 @@ import Typograhy from '@mui/material/Typography';
 
 import { ChevronRight } from 'lucide-react';
 
-import { OverViewItem_2 } from '../nav_items';
 import { useTranslation } from '@/lib/hooks/useTranslation';
+
+import { OverViewItem_2 } from '../nav_items';
 
 const NavButton2 = ({ item }: { item: OverViewItem_2 }) => {
   const { tSidebar } = useTranslation();

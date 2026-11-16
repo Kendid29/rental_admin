@@ -1,14 +1,23 @@
 'use client';
 
 import React, { useState } from 'react';
-import { Button, Menu, MenuItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
+
+import { Button, ListItemIcon, ListItemText, Menu, MenuItem, Typography } from '@mui/material';
+
 import { Check, Globe } from 'lucide-react';
+
 import { useTranslation } from '@/lib/hooks/useTranslation';
 
 interface LanguageSwitcherProps {
   variant?: 'header' | 'compact' | 'outlined';
   className?: string;
 }
+
+const LOCALE_LABELS: Record<string, string> = {
+  zh: '中文',
+  id: 'ID',
+  en: 'EN',
+};
 
 export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
   variant = 'header',
@@ -44,7 +53,7 @@ export const LanguageSwitcher: React.FC<LanguageSwitcherProps> = ({
       >
         <Globe size={18} className="text-gray-600" />
         <span className="text-xs font-semibold tracking-wider text-gray-800 uppercase">
-          {locale === 'zh' ? '中文' : locale === 'id' ? 'ID' : 'EN'}
+          {LOCALE_LABELS[locale] || 'EN'}
         </span>
       </Button>
 

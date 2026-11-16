@@ -21,15 +21,19 @@ const FilePreviewItem = ({
   const [previewUrl, setPreviewUrl] = useState<string>('');
 
   useEffect(() => {
-    if (!file.type.startsWith('image/')) {
-      return;
-    }
-    const url = URL.createObjectURL(file);
-    setPreviewUrl(url);
+    let cleanup: (() => void) | undefined;
 
-    return () => {
-      URL.revokeObjectURL(url);
-    };
+    if (file.type.startsWith('image/')) {
+      const url = URL.createObjectURL(file);
+
+      setPreviewUrl(url);
+
+      cleanup = () => {
+        URL.revokeObjectURL(url);
+      };
+    }
+
+    return cleanup;
   }, [file]);
 
   if (!file.type.startsWith('image/')) {

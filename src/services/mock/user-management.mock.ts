@@ -283,6 +283,7 @@ const handleRoleMutation = (
   if (removeMatch && method === 'DELETE') {
     const uuid = removeMatch[1];
     const index = roleDb.findIndex((item) => item.uuid === uuid);
+
     if (index === -1) return createSuccessResponse(null, 'Role not found');
 
     roleDb.splice(index, 1);
@@ -342,6 +343,7 @@ const handleStaffMutation = (
     const uuid = editMatch[1];
     const payload = normalizeBody(body);
     const staff = findByUuid(uuid);
+
     if (!staff) return createSuccessResponse(null, 'Staff not found');
 
     staff.name = payload.name || staff.name;
@@ -357,6 +359,7 @@ const handleStaffMutation = (
   if (removeMatch && method === 'DELETE') {
     const uuid = removeMatch[1];
     const index = userDb.findIndex((item) => item.uuid === uuid);
+
     if (index === -1) return createSuccessResponse(null, 'Staff not found');
 
     userDb.splice(index, 1);
@@ -366,6 +369,7 @@ const handleStaffMutation = (
   if (detailMatch && method === 'GET') {
     const uuid = detailMatch[1];
     const staff = findByUuid(uuid);
+
     return createSuccessResponse(staff ? buildUserResponse(staff) : null);
   }
 
@@ -410,6 +414,7 @@ const handleMemberMutation = (
     const uuid = editMatch[1];
     const payload = normalizeBody(body);
     const member = findByUuid(uuid);
+
     if (!member) return createSuccessResponse(null, 'Member not found');
 
     member.name = payload.name || member.name;
@@ -427,6 +432,7 @@ const handleMemberMutation = (
   if (removeMatch && method === 'DELETE') {
     const uuid = removeMatch[1];
     const index = userDb.findIndex((item) => item.uuid === uuid);
+
     if (index === -1) return createSuccessResponse(null, 'Member not found');
 
     userDb.splice(index, 1);
@@ -436,13 +442,19 @@ const handleMemberMutation = (
   if (detailMatch && method === 'GET') {
     const uuid = detailMatch[1];
     const member = findByUuid(uuid);
+
     return createSuccessResponse(member ? buildUserResponse(member) : null);
   }
 
   return undefined;
 };
 
-export const handleUserManagementMock = ({ path, queryParams, method, data }: MockRequestContext): MockResult => {
+export const handleUserManagementMock = ({
+  path,
+  queryParams,
+  method,
+  data,
+}: MockRequestContext): MockResult => {
   if (path === '/auth/role' && method === 'GET') {
     const { page, perPage } = parsePagingParams(queryParams);
     const search = (queryParams.get('search_param') || '').toLowerCase();
@@ -458,12 +470,15 @@ export const handleUserManagementMock = ({ path, queryParams, method, data }: Mo
   }
 
   const roleDetailMatch = path.match(/^\/auth\/role\/([^/]+)$/u);
+
   if (roleDetailMatch && method === 'GET') {
     const role = roleDb.find((item) => item.uuid === roleDetailMatch[1]);
+
     return createSuccessResponse(role || null);
   }
 
   const roleMutation = handleRoleMutation(path, method as 'GET' | 'POST' | 'PUT' | 'DELETE', data);
+
   if (typeof roleMutation !== 'undefined') {
     return roleMutation;
   }
@@ -473,7 +488,9 @@ export const handleUserManagementMock = ({ path, queryParams, method, data }: Mo
     const search = (queryParams.get('search_param') || '').toLowerCase();
     const roleUuid = queryParams.get('role_uuid') || '';
     const filtered = filterBySearch(
-      userDb.filter((item) => (roleUuid ? item.role.uuid === roleUuid : true) && item.role.code !== 'member'),
+      userDb.filter(
+        (item) => (roleUuid ? item.role.uuid === roleUuid : true) && item.role.code !== 'member',
+      ),
       search,
     );
     const result = paginate(filtered.map(buildUserResponse), page, perPage);
@@ -486,7 +503,12 @@ export const handleUserManagementMock = ({ path, queryParams, method, data }: Mo
     };
   }
 
-  const staffMutation = handleStaffMutation(path, method as 'GET' | 'POST' | 'PUT' | 'DELETE', data);
+  const staffMutation = handleStaffMutation(
+    path,
+    method as 'GET' | 'POST' | 'PUT' | 'DELETE',
+    data,
+  );
+
   if (typeof staffMutation !== 'undefined') {
     return staffMutation;
   }
@@ -508,7 +530,12 @@ export const handleUserManagementMock = ({ path, queryParams, method, data }: Mo
     };
   }
 
-  const memberMutation = handleMemberMutation(path, method as 'GET' | 'POST' | 'PUT' | 'DELETE', data);
+  const memberMutation = handleMemberMutation(
+    path,
+    method as 'GET' | 'POST' | 'PUT' | 'DELETE',
+    data,
+  );
+
   if (typeof memberMutation !== 'undefined') {
     return memberMutation;
   }

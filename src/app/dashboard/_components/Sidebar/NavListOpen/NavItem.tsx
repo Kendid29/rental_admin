@@ -8,6 +8,7 @@ import Typography from '@mui/material/Typography';
 import { ChevronRight } from 'lucide-react';
 
 import { useTranslation } from '@/lib/hooks/useTranslation';
+
 import { NavItem } from '../nav_items';
 import NavButton from './NavButton';
 

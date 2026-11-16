@@ -17,9 +17,8 @@ export interface UserType {
   role: RoleType;
   user: UserInformationType;
   version: number;
-  membership: BasicRelationType;
-
+  status?: string;
 }
 
+export type AdminType = UserType;
 export default UserType;
-

@@ -8,8 +8,8 @@ import { Button, Collapse, Typography } from '@mui/material';
 
 import { ChevronRight } from 'lucide-react';
 
-import { cn } from '@/lib/utils';
 import { useTranslation } from '@/lib/hooks/useTranslation';
+import { cn } from '@/lib/utils';
 import { useNavigationStore } from '@/lib/zustand/navigation.store';
 
 import { OverViewItem } from '../nav_items';
@@ -62,7 +62,7 @@ const NavChildrenWrapper = ({ item, className, depth = 1, last }: Props) => {
         className={cn(
           'w-full items-center justify-between transition-all duration-300',
           depth === 1 ? 'px-3 py-2 [&_p]:text-sm' : 'mt-1 px-3 !py-2 [&_p]:text-xs',
-          isActive && depth === 1 && 'border-l-4 border-primary-500 rounded-l-none pl-2',
+          isActive && depth === 1 && 'border-primary-500 rounded-l-none border-l-4 pl-2',
           className,
         )}
         onClick={onButtonClick}

@@ -1,7 +1,9 @@
 'use client';
 
 import { useEffect, useState } from 'react';
+
 import { type StaticImageData } from 'next/image';
+
 import { cn } from '@/lib/utils';
 
 interface Props extends React.HTMLAttributes<HTMLDivElement> {

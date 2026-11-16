@@ -41,7 +41,14 @@ const FileDropzone = <T extends FieldValues>({
         const { getRootProps, getInputProps, isDragActive } = useDropzone({
           onDropAccepted(files) {
             if (options?.multiple) {
-              const currentFiles = Array.isArray(value) ? value : value ? [value] : [];
+              let currentFiles: any[] = [];
+
+              if (Array.isArray(value)) {
+                currentFiles = value;
+              } else if (value) {
+                currentFiles = [value];
+              }
+
               onChange([...currentFiles, ...files]);
             } else {
               onChange(null);

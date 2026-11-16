@@ -123,4 +123,3 @@ export interface BookingDetailType {
   version: number;
   invoice?: BookingInvoiceType;
 }
-

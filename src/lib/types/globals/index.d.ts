@@ -52,4 +52,3 @@ export interface BasicRelationType {
   uuid: string;
   name: string;
 }
-

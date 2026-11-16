@@ -10,4 +10,3 @@ interface RoleType extends CreatedUpdatedType {
 }
 
 export default RoleType;
-

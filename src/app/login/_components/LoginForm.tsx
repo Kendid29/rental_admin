@@ -52,13 +52,16 @@ const LoginForm = () => {
             <Typography className="mb-2 font-semibold!" variant="h5">
               {t.auth.title}
             </Typography>
-            <Typography variant="body1">
-              {t.auth.subtitle}
-            </Typography>
+            <Typography variant="body1">{t.auth.subtitle}</Typography>
           </div>
 
           <TextInput control={control} name="email" label={t.auth.emailLabel} size="small" />
-          <PasswordInput control={control} name="password" label={t.auth.passwordLabel} size="small" />
+          <PasswordInput
+            control={control}
+            name="password"
+            label={t.auth.passwordLabel}
+            size="small"
+          />
 
           <Button
             variant="contained"

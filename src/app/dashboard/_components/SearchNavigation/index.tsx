@@ -82,6 +82,7 @@ const SearchNavigation = ({ ...props }: Props) => {
     return items.filter((item) => {
       if (search === '') return true;
       const translatedLabel = tSidebar(item.label);
+
       return (
         item.label.toLowerCase().includes(search.toLowerCase()) ||
         translatedLabel.toLowerCase().includes(search.toLowerCase())

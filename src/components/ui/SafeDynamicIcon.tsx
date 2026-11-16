@@ -1,6 +1,7 @@
 'use client';
 
 import React, { lazy, Suspense } from 'react';
+
 import { Check, type LucideProps } from 'lucide-react';
 
 interface SafeDynamicIconProps extends Omit<LucideProps, 'ref' | 'name'> {
@@ -29,16 +30,21 @@ export const SafeDynamicIcon = ({
     import('lucide-react')
       .then((module: any) => {
         const Icon = module[pascalName];
+
         if (!Icon) {
           return { default: () => <>{fallback || <Check size={size} className={className} />}</> };
         }
         return { default: Icon };
       })
-      .catch(() => ({ default: () => <>{fallback || <Check size={size} className={className} />}</> })),
+      .catch(() => ({
+        default: () => <>{fallback || <Check size={size} className={className} />}</>,
+      })),
   ) as React.ComponentType<any>;
 
   return (
-    <Suspense fallback={fallback || <div style={{ width: size, height: size }} className={className} />}>
+    <Suspense
+      fallback={fallback || <div style={{ width: size, height: size }} className={className} />}
+    >
       <IconComponent size={size} className={className} {...props} />
     </Suspense>
   );

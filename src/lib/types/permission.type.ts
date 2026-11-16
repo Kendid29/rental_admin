@@ -14,4 +14,3 @@ export interface AllPermissionsType {
   module_name: string;
   permission_name: string;
 }
-

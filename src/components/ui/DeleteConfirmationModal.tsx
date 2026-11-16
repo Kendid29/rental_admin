@@ -1,7 +1,9 @@
 import { Box, Button, Dialog, Typography } from '@mui/material';
+
 import { Trash2 } from 'lucide-react';
 
 import { useTranslation } from '@/lib/hooks/useTranslation';
+
 import MuiSlideTransition from '../mui/SlideTransition';
 
 interface Props {
@@ -27,6 +29,7 @@ const DeleteConfirmationModal = ({
   const displayTitle = tCommon(title || 'Delete Item');
   const displayContent = tCommon(content || 'Are you sure want to delete this item?');
   const displayButtonLabel = tCommon(buttonLabel || 'Delete');
+
   return (
     <Dialog
       open={open}

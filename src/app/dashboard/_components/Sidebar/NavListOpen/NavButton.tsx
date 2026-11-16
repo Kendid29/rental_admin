@@ -8,8 +8,8 @@ import { usePathname } from 'next/navigation';
 import Button from '@mui/material/Button';
 import Typograhy from '@mui/material/Typography';
 
-import { cn } from '@/lib/utils';
 import { useTranslation } from '@/lib/hooks/useTranslation';
+import { cn } from '@/lib/utils';
 
 import { OverViewItem } from '../nav_items';
 import NavChildrenWrapper from './NavChildrenWrapper';
@@ -31,9 +31,9 @@ const NavButton = ({ item, className }: { item: OverViewItem; className?: string
       variant={isActive ? 'ghost' : 'text'}
       color={isActive ? 'primary' : 'gray'}
       className={cn(
-        'w-full justify-start px-3 py-2 [&_p]:text-sm transition-all duration-300',
-        isActive && 'border-l-4 border-primary-500 rounded-l-none pl-2',
-        className
+        'w-full justify-start px-3 py-2 transition-all duration-300 [&_p]:text-sm',
+        isActive && 'border-primary-500 rounded-l-none border-l-4 pl-2',
+        className,
       )}
       LinkComponent={Link}
       href={item.pathname}

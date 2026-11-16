@@ -27,7 +27,7 @@ const RootLayout = ({ children }: Readonly<{ children: React.ReactNode }>) => (
     <body
       id="root"
       suppressHydrationWarning
-      className={`font-primary scrollbar-thin scrollbar-track-primary-100 scrollbar-thumb-primary-300 selection:bg-primary-200 selection:text-primary-900 relative flex min-h-screen text-slate-900 antialiased ${primaryFont.variable} ${primaryFont.className}`}
+      className={`font-primary scrollbar-track-primary-100 scrollbar-thumb-primary-300 selection:bg-primary-200 selection:text-primary-900 relative flex min-h-screen scrollbar-thin text-slate-900 antialiased ${primaryFont.variable} ${primaryFont.className}`}
     >
       <Provider>{children}</Provider>
     </body>

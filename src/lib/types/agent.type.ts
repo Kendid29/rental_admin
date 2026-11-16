@@ -1,10 +1,2 @@
-export interface AgentType {
-  uuid: string;
-  name: string;
-  email: string;
-  phone_number: string;
-  location: string;
-  company: string;
-  version: number;
-}
-
+export type * from './mitra.type';
+export type { default } from './mitra.type';

@@ -69,15 +69,17 @@ const Sidebar = () => {
       >
         <div className={`flex gap-2 ${isSidebarOpen ? 'md:gap-2' : 'md:gap-0'}`}>
           <div
-            className={`bg-primary-500 size-10 rounded-xl flex items-center justify-center ${isSidebarOpen ? 'mx-0' : 'mx-auto'} transition-all duration-700`}
+            className={`bg-primary-500 flex size-10 items-center justify-center rounded-xl ${isSidebarOpen ? 'mx-0' : 'mx-auto'} transition-all duration-700`}
           >
-            <Typography className="text-white font-bold text-lg leading-none">RK</Typography>
+            <Typography className="text-lg leading-none font-bold text-white">RK</Typography>
           </div>
           <div
             className={`flex flex-col ${isSidebarOpen ? 'w-full' : 'w-0'} overflow-hidden transition-all duration-700`}
           >
             <Typography className="m-0! text-base font-semibold">Rentaku</Typography>
-            <Typography className="-mt-1 text-sm text-neutral-500">Rental Kendaraan & Barang</Typography>
+            <Typography className="-mt-1 text-sm text-neutral-500">
+              Rental Kendaraan & Barang
+            </Typography>
           </div>
         </div>
         <SideBarToggleButton className="md:hidden" />

@@ -3,6 +3,7 @@ import { useEffect, useState } from 'react';
 import { Button, Typography } from '@mui/material';
 
 import { Command, Search } from 'lucide-react';
+
 import { useTranslation } from '@/lib/hooks/useTranslation';
 
 import SearchNavigation from '.';

@@ -28,6 +28,7 @@ const TextContent = ({
 }: Props) => {
   const { tCommon } = useTranslation();
   const translatedLabel = typeof label === 'string' ? tCommon(label) : label;
+
   return (
     <div
       className={cn(

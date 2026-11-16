@@ -422,7 +422,9 @@ const handleGetBookings = (queryParams: URLSearchParams) => {
 
   const filtered = bookingDb.filter((booking) => {
     if (!agentUuid) {
-      const isHistory = booking.status.value === 'completed' || booking.status.value === 'cancelled';
+      const isHistory =
+        booking.status.value === 'completed' || booking.status.value === 'cancelled';
+
       if (isHistory) return false;
     }
 
@@ -455,6 +457,7 @@ const handleGetBookingHistory = (queryParams: URLSearchParams) => {
 
   const filtered = bookingDb.filter((booking) => {
     const isHistory = booking.status.value === 'completed' || booking.status.value === 'cancelled';
+
     if (!isHistory) return false;
 
     const statusMatch = status ? booking.status.value === status : true;
@@ -485,23 +488,25 @@ const handleGetBookingCalendar = (queryParams: URLSearchParams) => {
   return Array.from({ length: daysInMonth }, (_, idx) => {
     const day = `${year}-${month}-${String(idx + 1).padStart(2, '0')}`;
 
-    const stats = bookingDb.filter((booking) => booking.check_in === day).reduce(
-      (acc, booking) => {
-        if (booking.status.value === 'pending') acc.pending += 1;
-        if (booking.status.value === 'confirmed') acc.confirmed += 1;
-        if (booking.status.value === 'checked_in') acc.checked_in += 1;
-        if (booking.status.value === 'completed') acc.completed += 1;
-        if (booking.status.value === 'cancelled') acc.cancelled += 1;
-        return acc;
-      },
-      {
-        pending: 0,
-        confirmed: 0,
-        checked_in: 0,
-        completed: 0,
-        cancelled: 0,
-      },
-    );
+    const stats = bookingDb
+      .filter((booking) => booking.check_in === day)
+      .reduce(
+        (acc, booking) => {
+          if (booking.status.value === 'pending') acc.pending += 1;
+          if (booking.status.value === 'confirmed') acc.confirmed += 1;
+          if (booking.status.value === 'checked_in') acc.checked_in += 1;
+          if (booking.status.value === 'completed') acc.completed += 1;
+          if (booking.status.value === 'cancelled') acc.cancelled += 1;
+          return acc;
+        },
+        {
+          pending: 0,
+          confirmed: 0,
+          checked_in: 0,
+          completed: 0,
+          cancelled: 0,
+        },
+      );
 
     return {
       date: day,
@@ -526,6 +531,7 @@ const findBookingByPath = (path: string) => {
 
 const handleBookingAction = (uuid: string, action: 'check_in' | 'check_out' | 'cancel') => {
   const booking = bookingDb.find((item) => item.uuid === uuid);
+
   if (!booking) {
     return createSuccessResponse(null, 'Booking not found');
   }
@@ -549,9 +555,15 @@ const handleBookingAction = (uuid: string, action: 'check_in' | 'check_out' | 'c
   return createSuccessResponse(booking);
 };
 
-export const handleBookingMock = ({ path, queryParams, method, data }: MockRequestContext): MockResult => {
+export const handleBookingMock = ({
+  path,
+  queryParams,
+  method,
+  data,
+}: MockRequestContext): MockResult => {
   if (path === '/booking' && method === 'GET') {
     const result = handleGetBookings(queryParams);
+
     return {
       data: result.data,
       success: true,
@@ -562,6 +574,7 @@ export const handleBookingMock = ({ path, queryParams, method, data }: MockReque
 
   if (path === '/booking/history' && method === 'GET') {
     const result = handleGetBookingHistory(queryParams);
+
     return {
       data: result.data,
       success: true,
@@ -578,6 +591,7 @@ export const handleBookingMock = ({ path, queryParams, method, data }: MockReque
 
   if (matched.detailUuid && method === 'GET') {
     const booking = bookingDb.find((item) => item.uuid === matched.detailUuid);
+
     return createSuccessResponse(booking || null);
   }
 
@@ -594,13 +608,16 @@ export const handleBookingMock = ({ path, queryParams, method, data }: MockReque
   }
 
   const rescheduleMatch = path.match(/^\/booking\/([^/]+)\/reschedule$/u);
+
   if (rescheduleMatch && method === 'POST') {
     const uuid = rescheduleMatch[1];
     const booking = bookingDb.find((item) => item.uuid === uuid);
+
     if (!booking) {
       return createSuccessResponse(null, 'Booking not found');
     }
     const payload = data;
+
     booking.check_in = payload.check_in;
     booking.check_out = payload.check_out;
     booking.version += 1;
@@ -611,8 +628,9 @@ export const handleBookingMock = ({ path, queryParams, method, data }: MockReque
     return createSuccessResponse(booking, 'Booking rescheduled successfully');
   }
 
-  const rescheduleDateMatch = path.match(/^\/booking\/([^/]+)\/reschedule-date$/u);
-  if (rescheduleDateMatch && method === 'GET') {
+  const isRescheduleDate = /^\/booking\/[^/]+\/reschedule-date$/u.test(path);
+
+  if (isRescheduleDate && method === 'GET') {
     return createSuccessResponse([]);
   }
 
@@ -626,41 +644,50 @@ export const handleBookingMock = ({ path, queryParams, method, data }: MockReque
       check_out: payload.check_out,
       checked_in_at: '',
       checked_out_at: '',
-      duration: Math.ceil((new Date(payload.check_out).getTime() - new Date(payload.check_in).getTime()) / (1000 * 60 * 60 * 24)),
+      duration: Math.ceil(
+        (new Date(payload.check_out).getTime() - new Date(payload.check_in).getTime()) /
+          (1000 * 60 * 60 * 24),
+      ),
       total_payment: payload.total_payment,
       total_discount: payload.total_discount,
       payment_type: payload.payment_type || 'cash',
-      status: { label: toStatusLabel(payload.status || 'pending'), value: payload.status || 'pending' },
+      status: {
+        label: toStatusLabel(payload.status || 'pending'),
+        value: payload.status || 'pending',
+      },
       guest_info: payload.guest_info,
       guest_count: { adults: payload.adult_count, children: payload.child_count },
       membership: { uuid: 'mt-none', name: '-' },
       version: 1,
-      rooms: payload.rooms?.map((r: any, idx: number) => ({
-        uuid: `br-mock-${Date.now()}-${idx}`,
-        quantity: r.quantity,
-        price: r.price,
-        total_price: r.total_price,
-        room_type: { uuid: 'rt-mock', name: 'Mock Room Type' }, // Ideally fetch from room_pricing_uuid
-        addons: r.addons?.map((a: any, aidx: number) => ({
-          uuid: `ba-mock-${Date.now()}-${aidx}`,
-          addon: { uuid: 'ad-mock', name: 'Mock Addon' },
-          quantity: a.quantity,
-          price: a.price,
-          total_price: a.total_price,
+      rooms:
+        payload.rooms?.map((r: any, idx: number) => ({
+          uuid: `br-mock-${Date.now()}-${idx}`,
+          quantity: r.quantity,
+          price: r.price,
+          total_price: r.total_price,
+          room_type: { uuid: 'rt-mock', name: 'Mock Room Type' }, // Ideally fetch from room_pricing_uuid
+          addons:
+            r.addons?.map((a: any, aidx: number) => ({
+              uuid: `ba-mock-${Date.now()}-${aidx}`,
+              addon: { uuid: 'ad-mock', name: 'Mock Addon' },
+              quantity: a.quantity,
+              price: a.price,
+              total_price: a.total_price,
+            })) || [],
+          is_cancellable: true,
+          per_night_promos: [],
         })) || [],
-        is_cancellable: true,
-        per_night_promos: [],
-      })) || [],
-      package_tours: payload.package_tours?.map((pt: any, idx: number) => ({
-        uuid: `bpt-mock-${Date.now()}-${idx}`,
-        package_tour: { uuid: 'tour-mock', name: 'Mock Package Tour' },
-        price: pt.price,
-        total_price: pt.total_price,
-        quantity: pt.quantity,
-      })) || [],
+      package_tours:
+        payload.package_tours?.map((pt: any, idx: number) => ({
+          uuid: `bpt-mock-${Date.now()}-${idx}`,
+          package_tour: { uuid: 'tour-mock', name: 'Mock Package Tour' },
+          price: pt.price,
+          total_price: pt.total_price,
+          quantity: pt.quantity,
+        })) || [],
       vouchers: [],
     };
-    
+
     bookingDb.unshift(newBooking as BookingRecord);
     return createSuccessResponse(newBooking);
   }

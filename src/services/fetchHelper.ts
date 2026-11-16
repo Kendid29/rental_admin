@@ -8,7 +8,8 @@ import { getQueryCLient } from '@/provider/ReactQueryProvider';
 import { handleMockRequest } from '@/services/mock/router';
 
 const isMockApiEnabled = useMockApi;
-const isDevelopment = process.env.NODE_ENV === 'development' || process.env.NEXT_PUBLIC_ENVIRONMENT === 'development';
+const isDevelopment =
+  process.env.NODE_ENV === 'development' || process.env.NEXT_PUBLIC_ENVIRONMENT === 'development';
 
 const fetchHelper = async <T>(
   url: string,
@@ -63,4 +64,3 @@ const fetchHelper = async <T>(
 };
 
 export default fetchHelper;
-

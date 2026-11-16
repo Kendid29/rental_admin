@@ -233,6 +233,7 @@ const MuiTheme = createTheme({
           const color =
             (theme.palette[ownerState.color as keyof Palette] as PaletteColor) ||
             theme.palette.primary;
+
           return {
             color: color.contrastText || '#fff',
             boxShadow: 'none',
