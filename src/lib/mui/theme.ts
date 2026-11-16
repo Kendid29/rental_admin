@@ -692,11 +692,13 @@ const MuiTheme = createTheme({
     MuiDataGrid: {
       styleOverrides: {
         root: {
+          fontFamily: 'var(--font-sans)',
           '& .MuiDataGrid-row:hover': {
             backgroundColor: `rgba(${hexToRgb('#0053cd')}, 0.04) !important`,
           },
         },
         columnHeader: {
+          fontFamily: 'var(--font-sans)',
           backgroundColor: `rgba(${hexToRgb('#0053cd')}, 0.08)`,
           color: '#0053cd',
           border: 'none',
@@ -722,6 +724,7 @@ const MuiTheme = createTheme({
           justifyContent: 'space-between',
         },
         cell: {
+          fontFamily: 'var(--font-sans)',
           fontSize: '0.9rem',
           [breakpoints.down('lg')]: {
             fontSize: '0.875rem',

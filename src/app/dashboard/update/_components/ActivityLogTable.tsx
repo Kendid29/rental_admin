@@ -101,9 +101,7 @@ const ActivityLogTable = ({
       field: 'created_at',
       headerName: 'Waktu / Tanggal',
       width: 170,
-      renderCell: (params) => (
-        <span className="text-xs text-slate-700">{params.row.created_at}</span>
-      ),
+      renderCell: (params) => <span className="text-slate-800">{params.row.created_at}</span>,
     },
     {
       field: 'action',
@@ -114,7 +112,7 @@ const ActivityLogTable = ({
           size="small"
           label={params.row.action.toUpperCase()}
           color={getActionColor(params.row.action)}
-          className="text-[11px] font-semibold uppercase"
+          className="text-xs font-semibold uppercase"
         />
       ),
     },
@@ -122,11 +120,7 @@ const ActivityLogTable = ({
       field: 'module',
       headerName: 'Modul',
       width: 160,
-      renderCell: (params) => (
-        <span className="rounded bg-slate-100 px-2 py-0.5 text-xs font-medium text-slate-700">
-          {params.row.module}
-        </span>
-      ),
+      renderCell: (params) => <span className="text-slate-800">{params.row.module}</span>,
     },
     {
       field: 'description',
@@ -135,7 +129,7 @@ const ActivityLogTable = ({
       minWidth: 240,
       renderCell: (params) => (
         <Tooltip title={params.row.description} placement="top-start">
-          <Typography variant="body2" className="truncate text-xs font-medium text-slate-800">
+          <Typography variant="body2" className="truncate text-slate-800">
             {params.row.description}
           </Typography>
         </Tooltip>
@@ -147,13 +141,9 @@ const ActivityLogTable = ({
       flex: 1.5,
       minWidth: 180,
       renderCell: (params) => (
-        <div className="flex flex-col justify-center leading-tight">
-          <span className="text-xs font-semibold text-slate-800">
-            {params.row.actor?.name || 'Unknown'}
-          </span>
-          <span className="truncate text-[11px] text-slate-500">
-            {params.row.actor?.email || '-'}
-          </span>
+        <div className="flex flex-col justify-center py-1 leading-tight">
+          <span className="text-slate-800">{params.row.actor?.name || 'Unknown'}</span>
+          <span className="truncate text-xs text-slate-500">{params.row.actor?.email || '-'}</span>
         </div>
       ),
     },
@@ -164,17 +154,17 @@ const ActivityLogTable = ({
       renderCell(params) {
         const req = params.row.request;
 
-        if (!req) return <span className="text-xs text-slate-400">-</span>;
+        if (!req) return <span className="text-slate-400">-</span>;
         return (
           <div className="flex items-center gap-2">
             <Chip
               size="small"
               label={req.method}
               color={getMethodColor(req.method)}
-              className="text-[11px] font-semibold uppercase"
+              className="text-xs font-semibold uppercase"
               sx={{ minWidth: 48, height: 22 }}
             />
-            <span className="truncate text-xs text-slate-600">{req.ip_address}</span>
+            <span className="truncate text-slate-800">{req.ip_address}</span>
           </div>
         );
       },

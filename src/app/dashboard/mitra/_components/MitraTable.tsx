@@ -67,7 +67,7 @@ const MitraTable = () => {
       renderCell({ row }) {
         return (
           <div className="flex flex-col justify-center py-1">
-            <span className="font-semibold text-slate-800">{row.name}</span>
+            <span className="text-slate-800">{row.name}</span>
             {row.company && (
               <span className="flex items-center gap-1 text-xs text-slate-500">
                 <Building2 size="0.75rem" /> {row.company}
@@ -93,9 +93,9 @@ const MitraTable = () => {
         }
 
         return (
-          <div className="flex flex-col justify-center py-1 text-xs">
-            <span className="font-medium text-slate-800">{formattedPhone}</span>
-            <span className="text-slate-500">{row.email}</span>
+          <div className="flex flex-col justify-center py-1">
+            <span className="text-slate-800">{formattedPhone}</span>
+            <span className="text-xs text-slate-500">{row.email}</span>
           </div>
         );
       },
@@ -106,9 +106,9 @@ const MitraTable = () => {
       flex: 1,
       renderCell({ row }) {
         return (
-          <div className="flex flex-col justify-center py-1 text-xs">
-            <span className="font-medium text-slate-800">{row.city || '-'}</span>
-            <span className="max-w-40 truncate text-slate-500">{row.address || '-'}</span>
+          <div className="flex flex-col justify-center py-1">
+            <span className="text-slate-800">{row.city || '-'}</span>
+            <span className="max-w-40 truncate text-xs text-slate-500">{row.address || '-'}</span>
           </div>
         );
       },
@@ -137,14 +137,16 @@ const MitraTable = () => {
       headerName: 'Rekening Bank',
       flex: 1.5,
       renderCell({ row }) {
-        if (!row.bank_account_number) return <span className="text-xs text-slate-400">-</span>;
+        if (!row.bank_account_number) return <span className="text-slate-400">-</span>;
 
         return (
-          <div className="flex flex-col justify-center py-1 text-xs">
-            <span className="font-medium text-slate-800">
+          <div className="flex flex-col justify-center py-1">
+            <span className="text-slate-800">
               {row.bank_name || 'Bank'} - {row.bank_account_number}
             </span>
-            <span className="text-slate-500">a/n {row.bank_account_holder || row.name}</span>
+            <span className="text-xs text-slate-500">
+              a/n {row.bank_account_holder || row.name}
+            </span>
           </div>
         );
       },

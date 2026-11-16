@@ -64,12 +64,12 @@ const ReimburseTable = () => {
         return (
           <div className="flex flex-col justify-center py-1">
             <span
-              className="text-primary-600 cursor-pointer font-semibold hover:underline"
+              className="text-primary-600 cursor-pointer hover:underline"
               onClick={() => setSelectedDetail(row)}
             >
               {row.booking_number}
             </span>
-            <span className="text-[11px] text-slate-400">
+            <span className="text-xs text-slate-400">
               {row.created_at ? dayjs(row.created_at).format('DD/MM/YYYY HH:mm') : '-'}
             </span>
           </div>
@@ -84,7 +84,7 @@ const ReimburseTable = () => {
       renderCell({ row }) {
         return (
           <div className="flex flex-col justify-center py-1">
-            <span className="font-medium text-slate-800">{row.mitra.name}</span>
+            <span className="text-slate-800">{row.mitra.name}</span>
             <span className="text-xs text-slate-500">
               {row.mitra.bank_name
                 ? `${row.mitra.bank_name} - ${row.mitra.bank_account_number}`
@@ -102,7 +102,7 @@ const ReimburseTable = () => {
       renderCell({ row }) {
         return (
           <div className="flex flex-col justify-center py-1">
-            <span className="font-medium text-slate-800">{row.unit?.name || '-'}</span>
+            <span className="text-slate-800">{row.unit?.name || '-'}</span>
             <span className="text-xs text-slate-500">
               {row.unit?.plate_number || row.unit?.category || '-'}
             </span>
@@ -117,7 +117,7 @@ const ReimburseTable = () => {
       minWidth: 130,
       renderCell({ row }) {
         return (
-          <div className="flex items-center text-slate-700">
+          <div className="flex items-center text-slate-800">
             {formatToRp(row.total_transaction)}
           </div>
         );
@@ -130,7 +130,7 @@ const ReimburseTable = () => {
       minWidth: 140,
       renderCell({ row }) {
         return (
-          <div className="text-primary-600 flex items-center font-bold">
+          <div className="text-primary-600 flex items-center">
             {formatToRp(row.nominal_reimburse)}
           </div>
         );

@@ -1,13 +1,13 @@
 @layer theme, base, mui, components, utilities;
 @import 'tailwindcss';
 
-@import "tw-animate-css";
+@import 'tw-animate-css';
 
 @custom-variant dark (&:is(.dark *));
 
 @layer components {
   .form-container {
-    @apply mx-auto flex w-full max-w-2xl flex-col gap-8 mb-16;
+    @apply mx-auto mb-16 flex w-full max-w-2xl flex-col gap-8;
   }
 }
 
@@ -95,6 +95,18 @@ img:not(.MuiTelInput-FlagImg) {
   @apply absolute inset-0 h-full w-full bg-transparent;
 }
 
+:root {
+  --font-sans: var(--font-primary), ui-sans-serif, system-ui, sans-serif;
+}
+
+body,
+input,
+button,
+select,
+textarea {
+  font-family: var(--font-primary), ui-sans-serif, system-ui, sans-serif;
+}
+
 * {
   box-sizing: border-box;
   scrollbar-width: thin;
@@ -104,7 +116,9 @@ img:not(.MuiTelInput-FlagImg) {
 /* Custom React Toastify UI Style Overrides */
 .Toastify__toast {
   border-radius: 12px !important;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08), 0 4px 12px rgba(0, 0, 0, 0.03) !important;
+  box-shadow:
+    0 10px 30px rgba(0, 0, 0, 0.08),
+    0 4px 12px rgba(0, 0, 0, 0.03) !important;
   padding: 14px 18px !important;
   font-family: var(--font-primary), sans-serif !important;
 }

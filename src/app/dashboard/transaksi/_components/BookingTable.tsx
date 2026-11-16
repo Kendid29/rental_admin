@@ -83,8 +83,8 @@ const BookingTable = ({ date }: Props) => {
       renderCell({ row }) {
         return (
           <div className="flex flex-col justify-center py-1">
-            <span className="text-primary-600 font-semibold">{row.booking_number || row.uuid}</span>
-            <span className="text-[11px] text-slate-400">
+            <span className="text-primary-600">{row.booking_number || row.uuid}</span>
+            <span className="text-xs text-slate-400">
               {row.booking_date ? dayjs(row.booking_date).format('DD/MM/YYYY HH:mm') : '-'}
             </span>
           </div>
@@ -101,9 +101,9 @@ const BookingTable = ({ date }: Props) => {
           row.user?.phone_number || row.guest_info?.phone_number || row.user?.email || '';
 
         return (
-          <div className="flex flex-col justify-center py-1 text-xs">
-            <span className="font-medium text-slate-800">{name}</span>
-            <span className="text-slate-500">{contact}</span>
+          <div className="flex flex-col justify-center py-1">
+            <span className="text-slate-800">{name}</span>
+            {contact && <span className="text-xs text-slate-500">{contact}</span>}
           </div>
         );
       },
@@ -117,9 +117,9 @@ const BookingTable = ({ date }: Props) => {
         const plate = row.unit?.plate_number || row.unit?.category || '-';
 
         return (
-          <div className="flex flex-col justify-center py-1 text-xs">
-            <span className="font-medium text-slate-800">{unitName}</span>
-            <span className="text-slate-500">{plate}</span>
+          <div className="flex flex-col justify-center py-1">
+            <span className="text-slate-800">{unitName}</span>
+            <span className="text-xs text-slate-500">{plate}</span>
           </div>
         );
       },
@@ -133,9 +133,9 @@ const BookingTable = ({ date }: Props) => {
         const city = row.mitra?.city || '-';
 
         return (
-          <div className="flex flex-col justify-center py-1 text-xs">
-            <span className="font-medium text-slate-800">{mitraName}</span>
-            <span className="text-slate-500">{city}</span>
+          <div className="flex flex-col justify-center py-1">
+            <span className="text-slate-800">{mitraName}</span>
+            <span className="text-xs text-slate-500">{city}</span>
           </div>
         );
       },
@@ -150,9 +150,9 @@ const BookingTable = ({ date }: Props) => {
         const duration = row.duration ? `(${row.duration} hari)` : '';
 
         return (
-          <div className="flex flex-col justify-center py-1 text-xs">
-            <span className="font-medium text-slate-800">{`${start} - ${end}`}</span>
-            <span className="text-slate-500">{duration}</span>
+          <div className="flex flex-col justify-center py-1">
+            <span className="text-slate-800">{`${start} - ${end}`}</span>
+            <span className="text-xs text-slate-500">{duration}</span>
           </div>
         );
       },
@@ -163,7 +163,7 @@ const BookingTable = ({ date }: Props) => {
       flex: 1.2,
       renderCell({ row }) {
         return (
-          <span className="font-semibold text-slate-900">
+          <span className="text-slate-800">
             {new Intl.NumberFormat('id-ID', {
               style: 'currency',
               currency: 'IDR',
