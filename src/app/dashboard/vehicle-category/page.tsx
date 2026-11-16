@@ -2,26 +2,41 @@
 
 import React from 'react';
 
-import { Card, Typography } from '@mui/material';
+import Link from 'next/link';
+
+import { Button } from '@mui/material';
+
+import { PlusCircle } from 'lucide-react';
 
 import DashboardTitle from '@/components/ui/dashboard/DashboardTitle';
+import { usePermission } from '@/services/permission/usePermission';
+
+import VehicleCategoryTable from './_components/VehicleCategoryTable';
 
 const Page = () => {
+  const checkPermission = usePermission();
+
   return (
     <div className="flex flex-1 flex-col">
       <DashboardTitle
-        title="Vehicle category"
-        subTitle="Kategori kendaraan (Mobil, Motor) dan sub-kategori"
-        breadcrumbs={[{ label: 'Vehicle category' }]}
-      />
-      <Card
-        variant="outlined"
-        className="flex flex-col items-center justify-center p-12 text-center"
+        title="Kategori Kendaraan & Barang"
+        subTitle="Kelola klasifikasi kategori utama (Mobil, Motor, Barang) dan sub-kategori unit rental."
+        breadcrumbs={[{ label: 'Vehicle Category' }]}
       >
-        <Typography variant="h6" className="font-semibold text-neutral-700">
-          Memuat Kategori Kendaraan...
-        </Typography>
-      </Card>
+        {checkPermission('vehicle_category', 'Create') && (
+          <Button
+            LinkComponent={Link}
+            href="/dashboard/vehicle-category/new"
+            variant="contained"
+            color="primary"
+            startIcon={<PlusCircle size={'1rem'} />}
+          >
+            Tambah Kategori
+          </Button>
+        )}
+      </DashboardTitle>
+
+      <VehicleCategoryTable />
     </div>
   );
 };
