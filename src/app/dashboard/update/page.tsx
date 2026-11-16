@@ -8,24 +8,21 @@ import useTablePagination from '@/lib/hooks/useTablePagination';
 import ActivityLogTable from './_components/ActivityLogTable';
 
 const Page = () => {
-  const { paginationModel, setPaginationModel, search, setSearch } = useTablePagination();
+  const { paginationModel, search, setPaginationModel, setSearch } = useTablePagination();
   const [action, setAction] = useState('');
   const [dateRange, setDateRange] = useState('');
 
   const breadcrumbs = [
     {
-      label: 'System Log',
-    },
-    {
-      label: 'Activity Log',
+      label: 'Update',
     },
   ];
 
   return (
     <div className="flex flex-1 flex-col">
       <DashboardTitle
-        title="Activity Log"
-        subTitle="Audit trail dan riwayat aktivitas yang dilakukan pengguna dan sistem."
+        title="UPDATE"
+        subTitle="Jejak audit dan riwayat aktivitas perubahan data platform Rentaku (siapa, kapan, apa yang berubah)."
         breadcrumbs={breadcrumbs}
       />
 

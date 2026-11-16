@@ -4,6 +4,7 @@ import { handleBookingMock } from './booking.mock';
 import { createSuccessResponse, parseQueryParams } from './common';
 import { handleReimburseMock } from './reimburse.mock';
 import { HttpMethod } from './types';
+import { handleActivityLogMock } from './update.mock';
 import { handleUserManagementMock } from './user-management.mock';
 import { handleVehicleCategoryMock } from './vehicle-category.mock';
 
@@ -52,6 +53,12 @@ export const handleMockRequest = (url: string, method: HttpMethod, data?: any) =
 
   if (typeof reimburseResult !== 'undefined') {
     return reimburseResult;
+  }
+
+  const activityLogResult = handleActivityLogMock(context);
+
+  if (typeof activityLogResult !== 'undefined') {
+    return activityLogResult;
   }
 
   if (method === 'GET') {
