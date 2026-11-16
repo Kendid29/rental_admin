@@ -18,7 +18,16 @@ const fetchHelper = async <T>(
   headers?: Record<string, string>,
 ) => {
   if (isMockApiEnabled) {
-    return handleMockRequest(url, method, data);
+    const res: any = handleMockRequest(url, method, data);
+
+    if (res && res.success === false) {
+      const err: any = new Error(res.message || 'Request failed');
+
+      err.response = { data: res };
+      throw err;
+    }
+
+    return res;
   }
 
   const headerInit: Record<string, string> = headers || {};

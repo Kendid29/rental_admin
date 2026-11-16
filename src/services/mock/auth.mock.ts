@@ -106,11 +106,26 @@ export const handleAuthMock = ({
   data,
 }: MockRequestContext): MockResult => {
   if (path === '/auth/login' && method === 'POST') {
+    const password = data?.password;
+
+    if (password && password !== 'admin123') {
+      return {
+        data: null,
+        success: false,
+        message: 'Password salah. Gunakan password: admin123',
+      };
+    }
+
     return createSuccessResponse(
       {
         token: 'mock-admin-token',
+        user: {
+          uuid: 'mock-user-uuid',
+          email: data?.email || 'admin@rentaku.id',
+          name: 'Super Admin Rentaku',
+        },
       },
-      'Login Successfully',
+      'Login Berhasil',
     );
   }
 

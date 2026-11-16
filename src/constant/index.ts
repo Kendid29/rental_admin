@@ -34,7 +34,7 @@ export const apiOrigin = normalizedApiUrl;
 export const baseURL = normalizedApiVersion;
 export const clientVersion = rawClientVersion;
 export const devBearerToken = rawDevBearerToken;
-export const useMockApi = useMockRaw === 'true' || useMockRaw === '1' || false;
+export const useMockApi = useMockRaw ? useMockRaw === 'true' || useMockRaw === '1' : true;
 export const maxFileSize = Number(process.env.NEXT_PUBLIC_MAX_FILE_UPLOAD_SIZE || 2);
 export const environment =
   process.env.NEXT_PUBLIC_ENVIRONMENT || process.env.NODE_ENV || 'production';

@@ -51,13 +51,15 @@ const useLogin = (options?: UseMutationOptions<any, unknown, FormBody, unknown>)
       return result;
     },
     onSuccess(data, variables, onMutateResult, context) {
+      const isHttps = typeof window !== 'undefined' && window.location.protocol === 'https:';
+
       setCookie('rk_token', data.data.token, {
-        sameSite: true,
-        secure: true,
+        sameSite: 'lax',
+        secure: isHttps,
         path: '/',
         maxAge: 60 * 60 * 24 * 7, // 7 days
       });
-      toast(data.message, { type: 'success' });
+      toast(data.message || 'Login berhasil', { type: 'success' });
 
       const fallbackUrl = params.get('fallback');
 
@@ -71,9 +73,13 @@ const useLogin = (options?: UseMutationOptions<any, unknown, FormBody, unknown>)
 
       options?.onSuccess?.(data, variables, onMutateResult, context);
     },
-    onError(err, variables, onMutateResult, context) {
-      // toast((err as any).response.data.message.match(/"([^"]*)"/u)[1], { type: 'error' });
-      toast(err.response.data.message, { type: 'error' });
+    onError(err: any, variables, onMutateResult, context) {
+      const message =
+        err?.response?.data?.message ||
+        err?.message ||
+        'Login gagal, periksa email dan password Anda';
+
+      toast(message, { type: 'error' });
       options?.onError?.(err, variables, onMutateResult, context);
     },
   });
